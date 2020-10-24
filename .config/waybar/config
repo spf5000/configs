@@ -8,9 +8,11 @@
     "height": 25, // Waybar height
     // "width": 1280, // Waybar width
     // Choose the order of the modules
-    "modules-left": ["custom/menu","custom/arrow10","sway/workspaces","custom/block0","custom/arrow0","sway/mode"],
+    // "modules-left": ["custom/menu","custom/arrow10","sway/workspaces","custom/block0","custom/arrow0","sway/mode"],
+    // "modules-right": ["custom/arrow9","tray","idle_inhibitor","custom/arrow1","pulseaudio","custom/arrow2","cpu","custom/arrow3","memory","custom/arrow8","custom/vpn","custom/arrow4","custom/pacman","custom/arrow5","network","custom/bluetooth","custom/arrow6","battery","custom/arrow7","clock"],
+    "modules-left": ["sway/workspaces", "sway/mode"],
     "modules-center": [],
-    "modules-right": ["custom/arrow9","tray","idle_inhibitor","custom/arrow1","pulseaudio","custom/arrow2","cpu","custom/arrow3","memory","custom/arrow8","custom/vpn","custom/arrow4","custom/pacman","custom/arrow5","network","custom/bluetooth","custom/arrow6","battery","custom/arrow7","clock"],
+    "modules-right": ["pulseaudio","cpu","memory","network","battery","clock"],
     "gtk-layer-shell": true,
     // Modules configuration
      "sway/workspaces": {
@@ -24,19 +26,19 @@
 	"format": "{:%a, %d. %b %H:%M}"
     },
     "cpu": {
-        "format": "{usage}% "
+        "format": "{usage}% "
     },
     "memory": {
         "format": "{}% ",
 	"on-click": "kitty -e htop"
     },
     "battery": {
-    "bat": "BAT0",
-    "interval": 60,
-    "states": {
-        "warning": 30,
-        "critical": 15
-        },
+        "bat": "BAT0",
+        "interval": 60,
+        "states": {
+            "warning": 30,
+            "critical": 15
+         },
         "format": "{capacity}% {icon}",
         "format-icons": ["", "", "", "", ""],
         "max-length": 25
