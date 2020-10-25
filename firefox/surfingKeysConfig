@@ -1,0 +1,36 @@
+// Clear default search Aliases
+removeSearchAliasX('g', 'google', 'https://www.google.com/search?q=')
+removeSearchAliasX('d', 'duckduckgo', 'https://duckduckgo.com/?q=')
+removeSearchAliasX('b', 'baidu', 'https://www.baidu.com/s?wd=')
+removeSearchAliasX('e', 'wikipedia', 'https://en.wikipedia.org/wiki/')
+removeSearchAliasX('w', 'bing', 'http://global.bing.com/search?setmkt=en-us&setlang=en-us&q=')
+removeSearchAliasX('s', 'stackoverflow', 'http://stackoverflow.com/search?q=')
+removeSearchAliasX('h', 'github', 'https://github.com/search?q=')
+removeSearchAliasX('y', 'youtube', 'https://www.youtube.com/results?search_query=')
+
+// an example to replace `S` with `H`, click `Default mappings` to see how `T` works.
+map('H', 'S'); // back in history
+map('L', 'D'); // forward in history
+map('F', 'gf'); // link click in new tab
+map('K', 'E'); // go to next tab
+map('J', 'R'); // go to previous tab
+map('o', 'go'); // open new url/search in current tab
+map('O', 't'); // open new url/search in new tab
+map('d', 'x'); // close current tab
+
+// Search aliases
+addSearchAlias('duck', 'duckduckgo', 'https://duckduckgo.com/?q=', 's', 'https://duckduckgo.com/ac/?q=', function(response) {
+    var res = JSON.parse(response.text);
+    return res.map(function(r){
+        return r.phrase;
+    });
+});
+addSearchAlias('yt', 'youtube', 'https://www.youtube.com/results?search_query=', 's',
+'https://clients1.google.com/complete/search?client=youtube&ds=yt&callback=cb&q=', function(response) {
+    var res = JSON.parse(response.text.substr(9, response.text.length-10));
+    return res[1].map(function(d) {
+        return d[0];
+    });
+});
+addSearchAlias('arch', 'arch wiki', 'https://wiki.archlinux.org/?search={}')
+addSearchAlias('wiki', 'wikipedia', 'https://en.wikipedia.org/w/index.php?search={}')
