@@ -42,6 +42,15 @@ c.auto_save.session = True
 ##   - webkit: Use QtWebKit (based on WebKit, similar to Safari).
 c.backend = 'webengine'
 
+## Color Settings
+## Unselected tabs background color. Setting it in odd and setting even to match it so they're all consistent.
+c.colors.tabs.odd.bg = 'grey'
+c.colors.tabs.even.bg = c.colors.tabs.odd.bg
+
+## Selected tabs background color. Setting it in odd and setting even to match it so they're all consistent.
+c.colors.tabs.selected.odd.bg = 'darkblue'
+c.colors.tabs.selected.even.bg = c.colors.tabs.selected.odd.bg
+
 ## Render all web contents using a dark theme. Example configurations
 ## from Chromium's `chrome://flags`:  - "With simple HSL/CIELAB/RGB-based
 ## inversion": Set   `colors.webpage.darkmode.algorithm` accordingly.  -
