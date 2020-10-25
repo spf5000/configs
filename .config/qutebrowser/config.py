@@ -190,7 +190,7 @@ c.downloads.location.directory = '/home/sean/Downloads'
 ## environment variable and is useful to force using the XCB plugin when
 ## running QtWebEngine on Wayland.
 ## Type: String
-c.qt.force_platform = 'wayland'
+# c.qt.force_platform = 'wayland'
 
 ## When/how to show the scrollbar.
 ## Type: String
@@ -290,13 +290,13 @@ c.tabs.max_width = -1
 ##   - next: After the current tab.
 ##   - first: At the beginning.
 ##   - last: At the end.
-# c.tabs.new_position.related = 'next'
+c.tabs.new_position.related = 'next'
 
 ## Stack related tabs on top of each other when opened consecutively.
 ## Only applies for `next` and `prev` values of
 ## `tabs.new_position.related` and `tabs.new_position.unrelated`.
 ## Type: Bool
-# c.tabs.new_position.stacking = True
+c.tabs.new_position.stacking = True
 
 ## Position of new tabs which are not opened from another tab. See
 ## `tabs.new_position.stacking` for controlling stacking behavior.
@@ -375,7 +375,8 @@ c.tabs.position = 'left'
 ## Type: Dict
 c.url.searchengines = {
 'DEFAULT': 'https://duckduckgo.com/?q={}',
-'arch': 'https://wiki.archlinux.org/?search={}'
+'arch': 'https://wiki.archlinux.org/?search={}',
+'wiki': 'https://en.wikipedia.org/w/index.php?search={}'
 }
 
 ## Format to use for the window title. The same placeholders like for
