@@ -17,7 +17,7 @@
 	"max-length": 50
     },
     "clock": {
-	"format": "{:%a, %d. %b %H:%M}"
+	"format": "{:%a, %b %d. %I:%M:%S %p}"
     },
     "cpu": {
         "format": "{usage}% CPU",
