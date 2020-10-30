@@ -4,14 +4,13 @@
 
 {
     "layer": "top", // Waybar at top layer
-    // "position": "bottom", // Waybar at the bottom of your screen
+    "position": "top", // Waybar at the bottom of your screen
     "height": 25, // Waybar height
-    // "width": 1280, // Waybar width
-    // Choose the order of the modules
     "modules-left": ["sway/workspaces", "sway/mode"],
     "modules-center": ["sway/window"],
     "modules-right": ["cpu","memory","battery","pulseaudio","backlight","network","clock"],
     "gtk-layer-shell": true,
+
     // Modules configuration
     "sway/window": {
 	"max-length": 50
