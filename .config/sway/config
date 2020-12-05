@@ -6,26 +6,34 @@
 
 ### Variables
 #
-# Logo key. Use Mod1 for Alt.
-# set $mod Mod4 Windows
+# Logo key. Use Mod1 for Alt, Mod4 for Window Key.
 set $mod Mod1
+
 # Home row direction keys, like vim
 set $left h
 set $down j
 set $up k
 set $right l
+
 # Your preferred terminal emulator
 set $term termite
+
 # Your preferred web browser
 set $browser qutebrowser
+
+# AutoStart Applications
+# get sudo creds for GUI applications
+exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
-set $menu wofi -S run | xargs swaymsg exec --
+set $menu wofi -S drun | xargs swaymsg exec --
 
 # Window/Workspace management
 for_window [app_id="pavucontrol"] floating enabled
-for_window [app_id="termite"] opacity 0.90
+for_window [app_id="termite"] opacity 0.95
+for_window [title="nmtui"] floating enabled
 
 ### Output configuration
 #
@@ -93,6 +101,15 @@ bindsym XF86MonBrightnessDown exec xbacklight -dec 5  # decrease screen brightne
     bindsym $mod+d exec $menu
     bindsym Control+Space exec $menu
 
+    # Launch web browser
+    bindsym $mod+shift+w exec $browser
+
+    # Lock screen
+    bindsym Control+Mod1+l exec swaylock
+
+    # Reload the configuration file
+    bindsym $mod+Shift+c reload
+
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
     # Despite the name, also works for non-floating windows.
@@ -100,17 +117,39 @@ bindsym XF86MonBrightnessDown exec xbacklight -dec 5  # decrease screen brightne
     # mouse button for dragging.
     floating_modifier $mod normal
 
-    # Reload the configuration file
-    bindsym $mod+Shift+c reload
+  # nag
+  set {
+    $nag         exec swaynagmode
+    $nag_exit    $nag --exit
+    $nag_confirm $nag --confirm
+    $nag_select  $nag --select
+  }
 
-    bindsym Control+Mod1+l exec swaylock
-    bindsym $mod+shift+w exec $browser
+  mode "nag" {
+    bindsym {
+      Ctrl+d    mode "default"
+
+      Ctrl+c    $nag_exit
+      q         $nag_exit
+      Escape    $nag_exit
+
+      Return    $nag_confirm
+
+      Tab       $nag_select prev
+      Shift+Tab $nag_select next
+
+      Left      $nag_select next
+      $left     $nag_select next
+      Right     $nag_select prev
+      $right    $nag_select prev
+
+      Up        $nag_select next
+      Down      $nag_select prev
+    }
+  }
 
     # Exit sway (logs you out of your Wayland session)
-    # bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
-
-# Exit sway (logs you out of your Wayland session)
-    bindsym $mod+Shift+e exec swaynag -t warning -m \
+    bindsym $mod+Shift+e exec $nag -t warning -m \
         'You pressed the exit shortcut. What do you want?' \
         -b 'Logout' 'swaymsg exit' \
         -b 'Sleep' 'systemctl suspend' \
