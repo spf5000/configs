@@ -1,0 +1,9 @@
+# Sway
+sway
+xorg-server-wayland
+waybar
+sddm
+
+# Applications
+termite
+qutebrowser
