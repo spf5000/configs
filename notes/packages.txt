@@ -7,3 +7,7 @@ sddm
 # Applications
 termite
 qutebrowser
+
+# Games
+retroarch
+libretro-core-info # cores for updater
