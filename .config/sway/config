@@ -16,7 +16,8 @@ set $up k
 set $right l
 
 # Your preferred terminal emulator
-set $term termite
+set $shell /bin/zsh
+set $term termite -e $shell
 
 # Your preferred web browser
 set $browser qutebrowser
