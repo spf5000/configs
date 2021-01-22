@@ -1,8 +1,8 @@
 # Sway
 sway
+swaylock
 xorg-server-wayland
 waybar
-sddm
 
 # Applications
 termite

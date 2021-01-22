@@ -1,3 +1,4 @@
+xwayland disable
 # Default config for sway
 #
 # Copy this to ~/.config/sway/config and edit it to your liking.
@@ -84,9 +85,9 @@ bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume $(pacmd 
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume $(pacmd list-sinks |awk '/* index:/{print $3}') -5% # Lower
 bindsym XF86AudioMute exec pactl set-sink-mute  $(pacmd list-sinks |awk '/* index:/{print $3}') toggle # Mute
 
-# Sreen brightness controls -- # https://gitlab.com/wavexx/acpilight
-bindsym XF86MonBrightnessUp exec xbacklight -inc 5    # increase screen brightness
-bindsym XF86MonBrightnessDown exec xbacklight -dec 5  # decrease screen brightness
+# Sreen brightness controls -- # https://github.com/Hummer12007/brightnessctl
+bindsym XF86MonBrightnessUp exec brightnessctl s +5%
+bindsym XF86MonBrightnessDown exec brightnessctl s 5%-
 
 ### Key bindings
 #

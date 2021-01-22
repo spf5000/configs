@@ -1,0 +1,9 @@
+# Setting up internet
+1. setup [network manager](https://wiki.archlinux.org/index.php/NetworkManager#systemd-resolved). 
+1. Used NetworkManager.service with systemd.resolved: 
+  1. enable systemd-resolved.service
+  1. create [symlink to stub](https://wiki.archlinux.org/index.php/Systemd-resolved#DNS)
+
+# Setting up brightness
+1. install brightnessctl
+1. Might also need to be added to video group
