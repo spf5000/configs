@@ -155,6 +155,7 @@ bindsym XF86MonBrightnessDown exec brightnessctl s 5%-
         'You pressed the exit shortcut. What do you want?' \
         -b 'Logout' 'swaymsg exit' \
         -b 'Sleep' 'systemctl suspend' \
+        -b 'Hibernate' 'systemctl hibernate' \
         -b 'Reboot' 'systemctl reboot' \
         -b 'Poweroff' 'systemctl poweroff'
 

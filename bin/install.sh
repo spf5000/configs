@@ -6,11 +6,19 @@
 #     echo "$config"
 # end
 
+dotfiles=${ls -a $HOME/configs/root/*)}
+
+# Assuming configs project in your home directory
+for dotfile in dotfiles; do
+    echo "linking .config directory -> $dotfile"
+    file="$(basename $dotfile)"
+    ln -sf $dotfile "$HOME/$file"
+done
+
+
 # Assuming configs project in your home directory
 for dir in $HOME/configs/.config/*; do
-    echo "File -> $dir"
-    # echo "$(basename $dir)"
+    echo "linking .config directory -> $dir"
     file="$(basename $dir)"
-    echo $file
     ln -sf $dir "$HOME/.config/$file"
 done

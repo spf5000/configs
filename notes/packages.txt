@@ -8,6 +8,10 @@ waybar
 termite
 qutebrowser
 
+# greeter (via yay)
+greetd
+greetd-tuigreet
+
 # Games
 retroarch
 libretro-core-info # cores for updater

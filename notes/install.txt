@@ -7,3 +7,31 @@
 # Setting up brightness
 1. install brightnessctl
 1. Might also need to be added to video group
+
+# Setting up firewall
+1. TODO
+
+# Setting up swap file
+1. If using btrfs, create a subvolume: sudo btrfs subvolume create /swap
+1. Setup swap file for btrfs: https://wiki.archlinux.org/index.php/Btrfs#Swap_file
+1. Continue swapfile setup: https://wiki.archlinux.org/index.php/Swap#Manually
+  1. restrict permissions to root: sudo chmod 0600 ./swapfile
+  1. Allocate space for the file: sudo falloate -l 8G ./swapfile
+  1. mkswap: sudo mkswap ./swapfile
+  1. swapon: sudo swapon ./swapfile
+1. update fstab with the swapfile: /swap/swapfile none swap defaults 0 0
+1. update bootloader config to point to swapfile for hibernate: https://wiki.archlinux.org/index.php/Power_management/Suspend_and_hibernate#Required_kernel_parameters
+
+# Setting up dual boot
+1. systemd-boot
+1. mount boot partition to /efi: 
+```
+UUID=D414-43FE          /efi vfat       rw,relatime,fmask=0022,dmask=0022,codepage=437,iocharset=ascii,shortname=mixed,utf8,errors=remount-ro   0 2
+```
+1. create subdirectory in /efi for kernel and initrf: sudo mkdir /efi/kernels && sudo mkdir /efi/kernels/arch
+1. update fstab to mount the subdirectory to boot: 
+```
+# setup /boot to arch kernel inside /efi so kernel updates get reflected
+/efi/kernels/arch       /boot           none            bind    0 0
+```
+1. Update entries to load linux/initrs from /kernels/arch/*
