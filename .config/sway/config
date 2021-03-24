@@ -1,4 +1,4 @@
-xwayland disable
+# xwayland disable
 # Default config for sway
 #
 # Copy this to ~/.config/sway/config and edit it to your liking.
@@ -18,10 +18,11 @@ set $right l
 
 # Your preferred terminal emulator
 set $shell /bin/zsh
-set $term termite -e $shell
+set $term alacritty -e $shell
 
 # Your preferred web browser
-set $browser qutebrowser
+# set $browser qutebrowser
+set $browser firefox
 
 # AutoStart Applications
 # get sudo creds for GUI applications
