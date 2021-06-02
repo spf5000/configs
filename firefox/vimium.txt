@@ -1,0 +1,8 @@
+# Key Mappings
+map J nextTab
+map K previousTab
+
+# Search Engines
+w: https://www.wikipedia.org/w/index.php?title=Special:Search&search=%s Wikipedia
+d: https://duckduckgo.com/?q=%s DuckDuckGo
+arch: https://wiki.archlinux.org/index.php?search=%s Arch

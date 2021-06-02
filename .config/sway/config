@@ -24,6 +24,9 @@ set $term alacritty -e $shell
 # set $browser qutebrowser
 set $browser firefox
 
+# Your preferred IDE.
+set $ide _JAVA_AWT_WM_NONREPARENTING=1 idea
+
 # AutoStart Applications
 # get sudo creds for GUI applications
 exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
@@ -106,6 +109,9 @@ bindsym XF86MonBrightnessDown exec brightnessctl s 5%-
 
     # Launch web browser
     bindsym $mod+shift+w exec $browser
+
+    # Launch IDE
+    bindsym $mod+shift+i exec $ide
 
     # Lock screen
     bindsym Control+Mod1+l exec swaylock
