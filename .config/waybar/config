@@ -1,98 +1,112 @@
-/* Thank you to u/Krudjan for sharing their dotfiles, I used
-   https://gitlab.com/Krudjan/dotfiles/tree/master/waybar/.config/waybar
-   as a reference when writing this */
-
 {
-    "layer": "top", // Waybar at top layer
-    "position": "top", // Waybar at the bottom of your screen
-    "height": 25, // Waybar height
-    "modules-left": ["sway/workspaces", "sway/mode"],
+    // Stolen from https://github.com/luispabon/sway-dotfiles
+    // Big improvement, thanks luispabon :)
+    "layer": "top",
+    "position": "top",
+    "modules-left": ["sway/workspaces", "sway/mode", "sway/window"],
     "modules-center": ["clock"],
-    "modules-right": ["cpu","memory","battery","pulseaudio","backlight","network"],
-    "gtk-layer-shell": true,
-
-    // Modules configuration
+    "modules-right": ["pulseaudio", "backlight", "network", "cpu", "custom/weather", "battery"],
+    "sway/mode": {
+        "format": " {}"
+    },
     "sway/window": {
-	"max-length": 50
+        "max-length": 60,
+        "tooltip": false
     },
     "clock": {
-	"format": "{:%a, %b %d. %I:%M:%S %p}"
+        "format": "{:%a %d %b - %H:%M}",
+        "tooltip": false,
+        "on-click": "gnome-calendar"
     },
     "cpu": {
-        "format": "{usage}% CPU",
-        "interval": 10
-
+        "interval": 10,
+        "format": "{usage}% ",
+        "on-click": "alacritty -e top"
     },
-    "memory": {
-        "format": "{percentage}% MEM",
-        "interval": 10
+    // TODO: figure this out and then add it back
+    "custom/powermenu": {
+        "return-type": "json",
+        "exec": "~/.config/waybar/modules/powermenu.sh",
+        "format": "<span font='Font Awesome 5 Free 9'>{icon}</span>  {}",
+        "format-icons": [""],
+        "interval": 3600,
+        "escape": true,
+        "on-click": "~/.config/sway/scripts/power-menu.sh"
     },
     "battery": {
-        "bat": "BAT0",
-        "interval": 60,
-        "states": {
-            "warning": 30,
-            "critical": 15
-         },
-        "format": "{capacity}% {icon}",
+        "format": "<span font='Font Awesome 5 Free 11'>{icon}</span>  {capacity}% - {time}",
         "format-icons": ["", "", "", "", ""],
-        "max-length": 25
+        "format-time": "{H}h{M}m",
+        "format-charging": "<span font='Font Awesome 5 Free'></span>  <span font='Font Awesome 5 Free 11'>{icon}</span>  {capacity}% - {time}",
+        "format-full": "<span font='Font Awesome 5 Free'></span>  <span font='Font Awesome 5 Free 11'>{icon}</span>  Charged",
+        "interval": 30,
+        "states": {
+            "warning": 25,
+            "critical": 10
+        },
+        "tooltip": false,
+        "on-click": "gnome-power-statistics"
     },
     "network": {
-        "format-wifi": "{essid} ({signalStrength}%) ",
-        "format-ethernet": "",
-        "format-disconnected": "",
-        "on-click": "termite -e 'nmtui connect'" 
+        "format": "{icon}",
+        "format-alt": "{ipaddr}/{cidr} {icon}",
+        "format-alt-click": "click-right",
+        "format-wifi": "<span font='Font Awesome 5 Free 10'></span>  {essid} ({signalStrength}%)",
+        "format-ethernet": " {ifname}",
+        "format-disconnected": "⚠ Disconnected",
+        "on-click": "gnome-control-center wifi",
+        // "on-click": "alacritty -e 'nmtui'",
+        "tooltip": false
+    },
+    "pulseaudio": {
+        "format": "<span font='Font Awesome 5 Free 11'>{icon:2}</span> {volume:4}%",
+        "format-alt": "<span font='Font Awesome 5 Free 11'>{icon:2}</span> {volume:4}%",
+        "format-alt-click": "click-right",
+        "format-muted": "<span font='Font Awesome 5 Free 11'></span>",
+        "format-icons": {
+            "phone": [" ", " ", " ", " "],
+            "default": ["", "", "", ""]
+        },
+        "scroll-step": 2,
+        "on-click": "pavucontrol",
+        "tooltip": false
     },
     "backlight": {
         "device": "intel_backlight",
         "format": "{percent}% {icon}",
         "format-icons": ["", ""]
     },
-    "pulseaudio": {
-        "scroll-step": 5,
-        "format": "{volume}% {icon}",
-        "format-muted": "",
+    "custom/weather": {
+        "format": "{}",
+        "format-alt": "{alt}: {}",
+        "format-alt-click": "click-right",
+        "interval": 1800,
+        "return-type": "json",
+        "exec": "~/.config/waybar/modules/weather.sh",
+        "exec-if": "ping wttr.in -c1",
+        "on-click": "gnome-weather"
+    },
+    "idle_inhibitor": {
+        "format": "{icon}",
+        "format-alt": "{icon} idle {status}",
+        "format-alt-click": "click-right",
         "format-icons": {
-            "headphones": "",
-            "handsfree": "",
-            "headset": "",
-            "phone": "",
-            "portable": "",
-            "car": "",
-            "default": ["", ""]
+            "activated": "<span font='Font Awesome 5 Free 9'></span>",
+            "deactivated": "<span font='Font Awesome 5 Free 9'></span>"
         },
-        "on-click": "pavucontrol"
+        "tooltip": false
     },
-//    "custom/pacman": {
-//        "format": "{} ",
-//        "interval": 3600,                     // every hour
-//        "exec": "pamac checkupdates -a -q | wc -l",       // # of updates
-//        "on-click": "pamac-manager", // update system
-//        "tooltip": false
-    },
-//    "tray": {
-//        "icon-size": 21,
-//        "spacing": 10
-//    },
-//    "idle_inhibitor": {
-//        "format": "{icon}",
-//        "format-icons": {
-//           "activated": "",
-//           "deactivated": ""                                         
-//        }                
-//    },
-//    "custom/menu": {
-//         "format": "",
-//         "on-click": "sgtk-menu -y 25",
-//         "tooltip": false
-//     }
-//    "custom/bluetooth": {
-//        "format": "",
-//        "interval": 5,
-//        "return-type": "json",
-//        "exec": "~/.config/waybar/modules/bluetooth.sh",
-//        "on-click": "blueberry"
-//    },
 
+    "tray": {
+        "icon-size": 18,
+        "spacing": 18
+    },
+    "wlr/taskbar": {
+        "format": "{icon}",
+        "icon-size": 14,
+        "icon-theme": "Numix-Circle",
+        "tooltip-format": "{title}",
+        "on-click": "activate",
+        "on-click-middle": "close"
+    }
 }
