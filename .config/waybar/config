@@ -7,8 +7,8 @@
     "position": "top", // Waybar at the bottom of your screen
     "height": 25, // Waybar height
     "modules-left": ["sway/workspaces", "sway/mode"],
-    "modules-center": ["sway/window"],
-    "modules-right": ["cpu","memory","battery","pulseaudio","backlight","network","clock"],
+    "modules-center": ["clock"],
+    "modules-right": ["cpu","memory","battery","pulseaudio","backlight","network"],
     "gtk-layer-shell": true,
 
     // Modules configuration

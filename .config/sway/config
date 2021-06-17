@@ -85,9 +85,9 @@ input "1:1:AT_Translated_Set_2_keyboard" {
 # Pulse Audio controls
 # run pactl list sinks
 
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume $(pacmd list-sinks |awk '/* index:/{print $3}') +5% # Raise
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume $(pacmd list-sinks |awk '/* index:/{print $3}') -5% # Lower
-bindsym XF86AudioMute exec pactl set-sink-mute  $(pacmd list-sinks |awk '/* index:/{print $3}') toggle # Mute
+bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -q sset Master 5%+ # Raise
+bindsym XF86AudioLowerVolume exec --no-startup-id amixer -q sset Master 5%- # Lower
+bindsym XF86AudioMute exec amixer -q sset Master toggle # Mute
 
 # Sreen brightness controls -- # https://github.com/Hummer12007/brightnessctl
 bindsym XF86MonBrightnessUp exec brightnessctl s +5%
@@ -115,6 +115,9 @@ bindsym XF86MonBrightnessDown exec brightnessctl s 5%-
 
     # Lock screen
     bindsym Control+Mod1+l exec swaylock
+
+    # Take a screenshot
+    bindsym $mod+shift+p exec grim -g "$(slurp)" "$HOME/Pictures/screenshot-$(date -Iseconds).png"
 
     # Reload the configuration file
     bindsym $mod+Shift+c reload
@@ -296,6 +299,8 @@ bindsym $mod+r mode "resize"
 #
 # Read `man 5 sway-bar` for more information about this section.
 bar {
+    # position top
+    # swaybar_command i3status-rs ~/.config/i3status-rust/config.toml
     swaybar_command waybar
 }
 
