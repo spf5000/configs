@@ -85,9 +85,9 @@ input "1:1:AT_Translated_Set_2_keyboard" {
 # Pulse Audio controls
 # run pactl list sinks
 
-bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -q sset Master 5%+ # Raise
-bindsym XF86AudioLowerVolume exec --no-startup-id amixer -q sset Master 5%- # Lower
-bindsym XF86AudioMute exec amixer -q sset Master toggle # Mute
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5% # Raise
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5% # Lower
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle # Mute
 
 # Sreen brightness controls -- # https://github.com/Hummer12007/brightnessctl
 bindsym XF86MonBrightnessUp exec brightnessctl s +5%
