@@ -1,0 +1,5 @@
+require ('globals')
+require ('keybindings')
+require ('plugins')
+require ('lsp')
+require ('autocomplete')
