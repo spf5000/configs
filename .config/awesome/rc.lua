@@ -61,15 +61,26 @@ editor_cmd = terminal .. " -e " .. editor
 -- However, you can use another modifier like Mod1, but it may interact with others.
 modkey = "Mod1"
 
+-- Autostart applications
+autorun = true
+autorunApps =
+{
+  "nm-applet",
+  "pasystray",
+  "cbatticon",
+}
+if autorun then
+  for app = 1, #autorunApps do
+    awful.util.spawn(autorunApps[app])
+  end
+end
+
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
     awful.layout.suit.tile,
     awful.layout.suit.fair,
     awful.layout.suit.spiral,
     awful.layout.suit.tile.bottom,
-    -- awful.layout.suit.corner.ne,
-    -- awful.layout.suit.corner.sw,
-    -- awful.layout.suit.corner.se,
 }
 -- }}}
 
@@ -93,16 +104,20 @@ mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
 
 -- Menubar configuration
 menubar.utils.terminal = terminal -- Set the terminal for applications that require it
--- }}}
-
--- Keyboard map indicator and switcher
-mykeyboardlayout = awful.widget.keyboardlayout()
 
 -- {{{ Wibar
 -- Create a textclock widget
 mytextclock = wibox.widget.textclock(
     "%a %d %b - %H:%M"
 )
+
+-- Add a calendar (credits to kylekewley for the original code)
+local month_calendar = awful.widget.calendar_popup.month({
+  screen = s,
+  start_sunday = false,
+  week_numbers = true
+})
+month_calendar:attach(mytextclock)
 
 -- Create a wibox for each screen and add it
 local taglist_buttons = gears.table.join(
@@ -208,8 +223,8 @@ awful.screen.connect_for_each_screen(function(s)
             spacing = 5,
             mykeyboardlayout,
             wibox.widget.systray(),
-            mytextclock,
             s.mylayoutbox,
+            mytextclock,
         },
     }
 end)
@@ -353,33 +368,6 @@ clientkeys = gears.table.join(
               {description = "move to master", group = "client"}),
     awful.key({ modkey,           }, "o",      function (c) c:move_to_screen()               end,
               {description = "move to screen", group = "client"})
-    -- awful.key({ modkey,           }, "t",      function (c) c.ontop = not c.ontop            end,
-    --           {description = "toggle keep on top", group = "client"}),
-    -- awful.key({ modkey,           }, "n",
-    --     function (c)
-    --         -- The client currently has the input focus, so it cannot be
-    --         -- minimized, since minimized clients can't have the focus.
-    --         c.minimized = true
-    --     end ,
-    --     {description = "minimize", group = "client"}),
-    -- awful.key({ modkey,           }, "m",
-    --     function (c)
-    --         c.maximized = not c.maximized
-    --         c:raise()
-    --     end ,
-    --     {description = "(un)maximize", group = "client"}),
-    -- awful.key({ modkey, "Control" }, "m",
-    --     function (c)
-    --         c.maximized_vertical = not c.maximized_vertical
-    --         c:raise()
-    --     end ,
-    --     {description = "(un)maximize vertically", group = "client"}),
-    -- awful.key({ modkey, "Shift"   }, "m",
-    --     function (c)
-    --         c.maximized_horizontal = not c.maximized_horizontal
-    --         c:raise()
-    --     end ,
-    --     {description = "(un)maximize horizontally", group = "client"})
 )
 
 -- Bind all key numbers to tags.
