@@ -2,4 +2,5 @@
 .config/qutebrowser/quickmarks
 .config/qutebrowser/qutebrowser
 .config/qutebrowser/qsettings
+.config/nvim/plugged
 
