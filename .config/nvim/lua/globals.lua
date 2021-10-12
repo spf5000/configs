@@ -1,19 +1,20 @@
+local indent = 4
 vim.bo.expandtab = true
-vim.bo.shiftwidth = 4
-vim.bo.tabstop = 4
-vim.bo.softtabstop = 4
+vim.bo.shiftwidth = indent
+vim.bo.tabstop = indent
+vim.bo.softtabstop = indent
 vim.bo.smartindent = true
 
 vim.wo.number = true
 vim.wo.relativenumber = true
 vim.wo.signcolumn = 'yes'
-vim.wo.colorcolumn = '80'
-vim.wo.wrap = false
+vim.wo.colorcolumn = '120'
 
 vim.o.termguicolors = true
 
-vim.g.ignorecase = true
-vim.g.incsearch = true
-vim.g.noerrorbells = true
-vim.g.scrolloff = 8
+vim.opt.wrap = false
+vim.opt.scrolloff = 8
+vim.opt.ignorecase = true
+vim.opt.incsearch = true
+vim.opt.errorbells = false
 vim.g.mapleader = ' '

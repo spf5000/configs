@@ -7,8 +7,9 @@ vim.call('plug#begin', '~/.config/nvim/plugged')
 
   -- Theme
   Plug 'gruvbox-community/gruvbox'
-
-  -- Telescope
+  Plug 'joshdick/onedark.vim'
+  Plug 'shaunsingh/nord.nvim'
+-- Telescope
   Plug 'nvim-lua/plenary.nvim'
   Plug 'nvim-telescope/telescope.nvim'
 
@@ -17,8 +18,17 @@ vim.call('plug#begin', '~/.config/nvim/plugged')
   Plug 'hrsh7th/nvim-cmp'
   Plug 'hrsh7th/cmp-nvim-lsp'
   Plug 'saadparwaiz1/cmp_luasnip'
-  Plug 'L3MON4D3/LuaSnip'
 
 vim.call('plug#end')
 
-vim.cmd[[colorscheme gruvbox]]
+-- Load non-lua themes
+-- vim.cmd[[colorscheme nord]]
+
+-- Example config in lua
+vim.g.nord_contrast = true
+vim.g.nord_borders = false
+vim.g.nord_disable_background = false
+vim.g.nord_italic = false
+
+-- Load the colorscheme
+require('nord').set()
