@@ -1,6 +1,11 @@
-from libqtile.config import Click, Drag, Group, Key, KeyChord, Match, Screen
+from libqtile.config import Key, KeyChord
+from libqtile.lazy import lazy
+
 
 def get_keys(groups):
+    mod = "mod1"
+    terminal = "alacritty -e /bin/zsh"
+    browser = "firefox"
     keys = [
         # Switch between windows
         Key([mod], "h", lazy.layout.left(), desc="Move focus to left"),
@@ -73,12 +78,8 @@ def get_keys(groups):
                 desc="Switch to group {}".format(i.name)),
 
             # mod1 + shift + letter of group = switch to & move focused window to group
-            Key([mod, "shift"], i.name, lazy.window.togroup(i.name, switch_group=True),
+            Key([mod, "shift"], i.name, lazy.window.togroup(i.name, switch_group=False),
                 desc="Switch to & move focused window to group {}".format(i.name)),
-            # Or, use below if you prefer not to switch to that group.
-            # # mod1 + shift + letter of group = move focused window to group
-            # Key([mod, "shift"], i.name, lazy.window.togroup(i.name),
-            #     desc="move focused window to group {}".format(i.name)),
         ])
 
     return keys
