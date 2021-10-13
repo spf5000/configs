@@ -1,73 +1,87 @@
-# Copyright (c) 2010 Aldo Cortesi
-# Copyright (c) 2010, 2014 dequis
-# Copyright (c) 2012 Randall Ma
-# Copyright (c) 2012-2014 Tycho Andersen
-# Copyright (c) 2012 Craig Barnes
-# Copyright (c) 2013 horsik
-# Copyright (c) 2013 Tao Sauvage
-#
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in
-# all copies or substantial portions of the Software.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-# SOFTWARE.
-
 # Qtile imports
 from typing import List  # noqa: F401
 
-from libqtile import bar, layout, widget
-from libqtile.config import Click, Drag, Group, Key, KeyChord, Match, Screen
+from libqtile import bar, layout, widget, qtile, hook
+from libqtile.config import Click, Drag, Group, Key, KeyChord, Match, Screen, ScratchPad, DropDown
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 
+terminal = "alacritty"
+
 # My modules
 from keys import get_keys
+from widgets import MyBattery
 
 mod = "mod1"
 groups = [Group(i) for i in "1234567890"]
+# groups += [
+#         ScratchPad("scratchpad", [
+# 
+#         ])
+# 
+#     ]
 
 keys = get_keys(groups)
 
 layouts = [
-    layout.Columns(border_focus_stack=['#d75f5f', '#8f3d3d'], border_width=4),
+    layout.Tile(
+        ratio=0.5, 
+        border_width=2, 
+        add_after_last=True,
+        border_focus=['#d75f5f', '#8f3d3d']
+        ),
     layout.Max(),
     # Try more layouts by unleashing below layouts.
+    # layout.Columns(border_focus_stack=['#d75f5f', '#8f3d3d'], border_width=4),
     # layout.Stack(num_stacks=2),
     # layout.Bsp(),
     # layout.Matrix(),
     # layout.MonadTall(),
     # layout.MonadWide(),
     # layout.RatioTile(),
-    # layout.Tile(),
     # layout.TreeTab(),
     # layout.VerticalTile(),
     # layout.Zoomy(),
 ]
 
 widget_defaults = dict(
-    font='sans',
+    font='Acme',
     fontsize=12,
     padding=3,
 )
 extension_defaults = widget_defaults.copy()
 
-screens = [
-    Screen(
-        top=bar.Bar(
-            [
-                widget.CurrentLayout(),
+seperator = widget.Sep()
+backlight = widget.Backlight(
+        backlight_name="intel_backlight",
+        change_command="brightnessctl s {0}",
+        fmt="\uf185 {}"
+        )
+# TODO write my own simple volume widget
+volume = widget.Volume(
+        volume_app="pavucontrol",
+        fmt="\uf028 {}"
+        )
+battery = MyBattery(
+        charge_char='\uf376',
+        empty_char='\uf244',
+        low_char='\ue0b1',
+        quarter_char='\uf243',
+        half_char='\uf242',
+        three_quarters_char='\uf241',
+        full_char='\uf240'
+        )
+
+wifi = widget.Wlan(
+        # format="{essid} {percent:2.0%}",
+        update_interval = 60,
+        fmt = "\uf1eb {}",
+        mouse_callbacks = {"Button1": lambda: qtile.cmd_spawn("{} -t nmtui -e nmtui".format(terminal))}
+        )
+
+clock = widget.Clock(format='%m/%d/%Y- %a %I:%M %p')
+
+widgets = [
                 widget.GroupBox(),
                 widget.Prompt(),
                 widget.WindowName(),
@@ -75,16 +89,29 @@ screens = [
                     chords_colors={
                         'launch': ("#ff0000", "#ffffff"),
                     },
-                    name_transform=lambda name: name.upper(),
                 ),
-                widget.TextBox("default config", name="default"),
-                widget.TextBox("Press &lt;M-r&gt; to spawn", foreground="#d75f5f"),
+                widget.CurrentLayout(),
+                seperator,
+                wifi,
+                seperator,
+                volume,
+                seperator,
+                backlight,
+                seperator,
+                battery,
+                seperator,
                 widget.Systray(),
-                widget.Clock(format='%Y-%m-%d %a %I:%M %p'),
-                widget.QuickExit(),
-            ],
+                clock
+        ]
+
+screens = [
+    Screen(
+        top=bar.Bar(
+            widgets,
             24,
         ),
+        wallpaper="~/.wallpapers/wallpaper",
+        wallpaper_mode="fill"
     ),
 ]
 
@@ -102,6 +129,10 @@ dgroups_app_rules = []  # type: List
 follow_mouse_focus = True
 bring_front_click = False
 cursor_warp = False
+widget_floating_windows = [
+    Match(title='nmtui'),  
+    Match(wm_class='osmo'),  
+]
 floating_layout = layout.Floating(float_rules=[
     # Run the utility of `xprop` to see the wm class and name of an X client.
     *layout.Floating.default_float_rules,
@@ -111,7 +142,7 @@ floating_layout = layout.Floating(float_rules=[
     Match(wm_class='ssh-askpass'),  # ssh-askpass
     Match(title='branchdialog'),  # gitk
     Match(title='pinentry'),  # GPG key password entry
-])
+] + widget_floating_windows)
 auto_fullscreen = True
 focus_on_window_activation = "smart"
 reconfigure_screens = True
@@ -119,13 +150,3 @@ reconfigure_screens = True
 # If things like steam games want to auto-minimize themselves when losing
 # focus, should we respect this or not?
 auto_minimize = True
-
-# XXX: Gasp! We're lying here. In fact, nobody really uses or cares about this
-# string besides java UI toolkits; you can see several discussions on the
-# mailing lists, GitHub issues, and other WM documentation that suggest setting
-# this string if your java app doesn't work correctly. We may as well just lie
-# and say that we're a working one by default.
-#
-# We choose LG3D to maximize irony: it is a 3D non-reparenting WM written in
-# java that happens to be on java's whitelist.
-wmname = "LG3D"

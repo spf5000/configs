@@ -1,11 +1,12 @@
 from libqtile.config import Key, KeyChord
 from libqtile.lazy import lazy
-
+mod = "mod1"
+terminal = "alacritty -e /bin/zsh"
+browser = "firefox"
+launcher = 'rofi -combi-modi window,drun,ssh -theme solarized -show combi'
+calendar = 'alacritty -e calcurse'
 
 def get_keys(groups):
-    mod = "mod1"
-    terminal = "alacritty -e /bin/zsh"
-    browser = "firefox"
     keys = [
         # Switch between windows
         Key([mod], "h", lazy.layout.left(), desc="Move focus to left"),
@@ -42,8 +43,12 @@ def get_keys(groups):
         # multiple stack panes
         Key([mod, "shift"], "Return", lazy.layout.toggle_split(),
             desc="Toggle between split and unsplit sides of stack"),
+
+        # application keybindings
         Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
         Key([mod, "shift"], "w", lazy.spawn(browser), desc="Launch web browser"),
+        Key([mod], "d", lazy.spawn(launcher), desc="Spawn a command using a prompt widget"),
+        Key([mod, "shift"], "c", lazy.spawn(calendar), desc="Spawn the calendar"),
 
         # Toggle between different layouts as defined below
         Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
@@ -58,8 +63,6 @@ def get_keys(groups):
             ],
             mode="[l]ogout, [h]ibernate, [r]estart, or [s]hutdown"
         ),
-        Key([mod], "d", lazy.spawncmd(),
-            desc="Spawn a command using a prompt widget"),
 
         # Brightness
         Key([], "XF86MonBrightnessUp", lazy.spawn("brightnessctl s +10%"), desc="Brightness Up"),

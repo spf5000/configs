@@ -22,13 +22,4 @@ vim.call('plug#begin', '~/.config/nvim/plugged')
 vim.call('plug#end')
 
 -- Load non-lua themes
--- vim.cmd[[colorscheme nord]]
-
--- Example config in lua
-vim.g.nord_contrast = true
-vim.g.nord_borders = false
-vim.g.nord_disable_background = false
-vim.g.nord_italic = false
-
--- Load the colorscheme
-require('nord').set()
+vim.cmd[[colorscheme onedark]]
