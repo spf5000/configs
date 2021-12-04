@@ -5,6 +5,7 @@ vim.call('plug#begin', '~/.config/nvim/plugged')
    Plug ('dracula/vim', {['name'] = 'dracula'})
   -- Plug ('nvim-treesitter/nvim-treesitter', {['do'] = vim.fn[':TSUpdate']})
   -- Plug 'preservim/nerdtree'
+  Plug 'ThePrimeagen/vim-be-good'
 
   -- Theme
   Plug 'gruvbox-community/gruvbox'
@@ -27,8 +28,9 @@ vim.call('plug#begin', '~/.config/nvim/plugged')
 vim.call('plug#end')
 
 -- Load non-lua themes
-vim.cmd[[syntax enable]]
-vim.cmd[[colorscheme dracula]]
+vim.cmd'syntax enable'
+vim.o.termguicolors = true
+vim.cmd'colorscheme dracula'
 -- vim.cmd[[colorscheme gruvbox]]
 
 --[[

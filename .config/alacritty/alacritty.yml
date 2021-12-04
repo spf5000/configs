@@ -30,3 +30,5 @@ colors:
 key_bindings:
   - { key: Escape, mode: Vi|~Search, action: ToggleViMode }
 
+env:
+    TERM: xterm-256color

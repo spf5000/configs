@@ -109,7 +109,6 @@ bindsym XF86MonBrightnessDown exec brightnessctl s 5%-
 
     # Start your launcher
     bindsym $mod+d exec $menu
-    bindsym Control+Space exec $menu
 
     # Launch web browser
     bindsym $mod+shift+w exec $browser
