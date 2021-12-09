@@ -1,5 +1,5 @@
 # Lines configured by zsh-newuser-install
-HISTFILE=~/.configs/zsh/histfile
+HISTFILE=~/.histfile
 HISTSIZE=1000
 SAVEHIST=1000
 unsetopt beep
@@ -27,3 +27,4 @@ PROMPT='%B%F{043}%n %fin %B%F{222}%~$vcs_info_msg_0_%f: '
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#d0d0d0,bold,underline"
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+alias vim=nvim
