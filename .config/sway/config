@@ -49,6 +49,7 @@ output * bg /home/sean/.wallpapers/wallpaper fill
 # Example configuration:
 #
 # Multi-monitor
+# output eDP-1 disable
 output eDP-1 resolution 1920x1080 position 0 0
 output HDMI-A-1 resolution 1920x1080 position 1920 0
 #
@@ -81,7 +82,7 @@ exec swayidle -w \
 # You can get the names of your inputs by running: swaymsg -t get_inputs
 # Read `man 5 sway-input` for more information about this section.
 input "type:keyboard" {
-    xkb_options caps:swapescape
+    # xkb_options caps:swapescape
 }
 
 input "type:touchpad" {
@@ -240,7 +241,7 @@ bindsym XF86MonBrightnessDown exec brightnessctl s 5%-
 workspace $workspace1 output eDP-1
 workspace $workspace2 output eDP-1
 workspace $workspace3 output eDP-1
-workspace $workspace4 output eDP-1
+workspace $workspace4 output HDMI-A-10
 workspace $workspace5 output HDMI-A-10
 workspace $workspace6 output HDMI-A-10
 workspace $workspace7 output HDMI-A-10

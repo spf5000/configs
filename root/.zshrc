@@ -28,3 +28,5 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#d0d0d0,bold,underline"
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 alias vim=nvim
+
+shuf -n 1 ~/.config/zsh/zshboot.txt | figlet
