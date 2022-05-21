@@ -39,26 +39,22 @@
     userEmail = "sflinn54@gmail.com";
   };
 
-  # programs.tmux = {
-  #   enable = true;
-  #   shortcut = "Space";
-  #   newSession = true;
-  #   extraConfig = ''
-  #     # Colors for alacritty
-  #     set -g default-terminal "tmux-256color"
-  #     set -ag terminal-overrides ",xterm-256color:RGB"
+  programs.tmux = {
+    enable = true;
+    shortcut = "Space";
+    newSession = true;
+    shell = "/home/sean/.nix-profile/bin/zsh";
+    terminal = "tmux-256color";
+    extraConfig = ''
+      # Colors for alacritty
+      # set -ag terminal-overrides ",xterm-256color:RGB"
 
-  #     # The one true shell :)
-  #     # I have my system default to bash for other scripts,
-  #     # but launch every terminal in zsh for personal usage. 
-  #     set -g default-shell zsh
-
-  #     # Vim setup
-  #     set-window-option -g mode-keys vi
-  #     bind-key -T copy-mode-vi 'v' send -X begin-selection
-  #     bind-key -T copy-mode-vi 'y' send -X copy-pipe-and-cancel "xclip -i -f -selection primary | xclip -- -selection clipboard"
-  #   '';
-  # };
+      # Vim setup
+      set-window-option -g mode-keys vi
+      bind-key -T copy-mode-vi 'v' send -X begin-selection
+      bind-key -T copy-mode-vi 'y' send -X copy-pipe-and-cancel "xclip -i -f -selection primary | xclip -- -selection clipboard"
+    '';
+  };
 
   programs.zsh = {
     enable = true;
@@ -74,13 +70,12 @@
     };
     initExtra = ''
       set -o vi
-      PS1='[%~]$ '
+      PS1='%B%F{043}%n %fin %B%F{222}%~%f: '
       shuf -n 1 ~/temp.txt | figlet
     '';
   };
 
   # dotfiles. See github: https://github.com/spf5000/configs
   xdg.configFile."alacritty".source = ~/configs/.config/alacritty;
-  home.file.".tmux.conf".source = ~/configs/root/.tmux.conf;
-  environment.etc."zsh" = "${pkgs.zsh}";
+  # home.file.".tmux.conf".source = ~/configs/root/.tmux.conf;
 }
