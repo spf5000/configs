@@ -7,11 +7,6 @@ vim.call('plug#begin', '~/.config/nvim/plugged')
   -- Plug 'preservim/nerdtree'
   Plug 'ThePrimeagen/vim-be-good'
 
-  -- Theme
-  Plug 'gruvbox-community/gruvbox'
-  Plug 'joshdick/onedark.vim'
-  Plug 'shaunsingh/nord.nvim'
-
 -- Telescope
   Plug 'nvim-lua/plenary.nvim'
   Plug 'nvim-telescope/telescope.nvim'

@@ -1,5 +1,5 @@
 require ('globals')
 require ('keybindings')
-require ('plugins')
 require ('lsp')
+-- require ('plugins') removed b/c it's managed by home manager
 -- require ('autocomplete')
