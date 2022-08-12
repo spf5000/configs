@@ -7,7 +7,7 @@
 {
   imports =
     [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
+      /etc/nixos/hardware-configuration.nix
     ];
 
   # Use the systemd boot loader.
@@ -42,15 +42,11 @@
       xterm.enable = false;
     };
   
-    windowManager.i3 = {
-      enable = true;
-      extraPackages = with pkgs; [
-        dmenu
-	i3status
-	i3lock
-	i3blocks
-      ];
-    };
+    windowManager.qtile.enable = true;
+    # windowManager.xmonad = {
+    #     enable = true;
+    #     enableContribAndExtras = true;
+    # };
 
     layout = "us";
 
@@ -66,7 +62,6 @@
   sound.enable = true;
   hardware.pulseaudio.enable = true;
 
-
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.sean = { 
     isNormalUser = true;
@@ -76,15 +71,10 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    wget
-    firefox # Browser
-    alacritty # Terminal
+    gparted
     pavucontrol # volume management
     # pactl # volume management
   ];
-  # programs.neovim.enable = true;
-  # programs.neovim.viAlias = true;
-  # programs.neovim.vimAlias = true;
 
   environment.variables.EDITOR = "nvim";
 
@@ -108,7 +98,7 @@
   #     export MOZ_ENABLE_WAYLAND=1
   #   '';
   # };
-  programs.light.enable = true;
+  # programs.light.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

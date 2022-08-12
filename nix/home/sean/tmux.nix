@@ -5,7 +5,7 @@
     enable = true;
     shortcut = "Space";
     newSession = true;
-    shell = "/home/sean/.nix-profile/bin/zsh";
+    shell = "/home/sean/.nix-profile/bin/fish";
     terminal = "tmux-256color";
     extraConfig = ''
       # Colors for alacritty

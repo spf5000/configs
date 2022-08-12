@@ -1,10 +1,10 @@
 from libqtile.config import Key, KeyChord
 from libqtile.lazy import lazy
 mod = "mod1"
-terminal = "alacritty -e /bin/zsh"
+terminal = "alacritty -e fish"
 browser = "firefox"
 launcher = 'rofi -combi-modi window,drun,ssh -theme solarized -show combi'
-calendar = 'alacritty -e calcurse'
+# calendar = 'alacritty -e calcurse'
 
 def get_keys(groups):
     keys = [
@@ -48,7 +48,7 @@ def get_keys(groups):
         Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
         Key([mod, "shift"], "w", lazy.spawn(browser), desc="Launch web browser"),
         Key([mod], "d", lazy.spawn(launcher), desc="Spawn a command using a prompt widget"),
-        Key([mod, "shift"], "c", lazy.spawn(calendar), desc="Spawn the calendar"),
+        Key([mod, "shift"], "c", lazy.reload_config(), desc="Reload the Config"),
 
         # Toggle between different layouts as defined below
         Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),

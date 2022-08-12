@@ -5,6 +5,7 @@
     [
       ./nvim.nix
       ./tmux.nix
+      ./fish.nix
     ];
 
   # Home Manager needs a bit of information about you and the
@@ -32,6 +33,22 @@
     figlet
     xclip
     tmux
+    dmenu
+    rofi
+    calcurse
+    font-awesome
+    brightnessctl
+    fractal # matrix
+    signal-desktop
+    firefox
+
+    # Nix Utils
+    nix-prefetch-github
+
+    # Rust
+    rustc
+    cargo
+    rust-analyzer
   ];
 
   programs.git = {
@@ -43,23 +60,33 @@
   programs.zsh = {
     enable = true;
     enableAutosuggestions = true;
-    enableSyntaxHighlighting = true;
+    # enableCompletion = true;
+    # enableSyntaxHighlighting = true;
     dotDir = ".config/zsh";
     shellAliases = {
-      system-update = "sudo nixos-rebuild switch --upgrade";
+      system-update = "sudo nixos-rebuild switch --upgrade -I nixos-config=/home/sean/configs/nix/system/configuration.nix";
       home-update = "nix-channel --update && home-manager switch -f ~/configs/nix/home/sean/home.nix";
     };
     history = {
-      size = 10000;
-      path = "${config.xdg.dataHome}/zsh/history";
+      ignoreDups = true;
+      size = 1000;
+      save = 1000;
+      path = "$HOME/.config/zsh/history";
     };
     initExtra = ''
       set -o vi
       PS1='%B%F{043}%n %fin %B%F{222}%~%f: '
-      shuf -n 1 ~/temp.txt | figlet
+      IS_NIX='true'
+      # neofetch
     '';
   };
 
+  # manage fonts via home manager
+  fonts.fontconfig.enable = true;
+
   # dotfiles. See github: https://github.com/spf5000/configs
   xdg.configFile."alacritty".source = ~/configs/.config/alacritty;
+  xdg.configFile."sway".source = ~/configs/.config/sway;
+  xdg.configFile."swaylock".source = ~/configs/.config/swaylock;
+  xdg.configFile."qtile".source = ~/configs/.config/qtile;
 }

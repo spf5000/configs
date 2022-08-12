@@ -44,7 +44,7 @@ for_window [title="nmtui"] floating enabled
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output * bg /home/sean/.wallpapers/wallpaper fill
+# output * bg /home/sean/.wallpapers/wallpaper fill
 #
 # Example configuration:
 #

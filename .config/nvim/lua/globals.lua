@@ -23,3 +23,8 @@ vim.g.mapleader = ' '
 
 -- AutoSave on exit
 vim.cmd[[autocmd TextChanged,FocusLost,BufEnter * silent update]]
+
+-- theme
+vim.cmd'syntax enable'
+vim.o.termguicolors = true
+vim.cmd'colorscheme dracula'
