@@ -4,8 +4,7 @@
   programs.tmux = {
     enable = true;
     shortcut = "Space";
-    newSession = true;
-    shell = "/home/sean/.nix-profile/bin/fish";
+    shell = "/home/sean/.nix-profile/bin/zsh";
     terminal = "tmux-256color";
     extraConfig = ''
       # Colors for alacritty

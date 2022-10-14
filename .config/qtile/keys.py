@@ -1,7 +1,7 @@
 from libqtile.config import Key, KeyChord
 from libqtile.lazy import lazy
 mod = "mod1"
-terminal = "alacritty -e fish"
+terminal = "alacritty -e zsh"
 browser = "firefox"
 launcher = 'rofi -combi-modi window,drun,ssh -theme solarized -show combi'
 # calendar = 'alacritty -e calcurse'

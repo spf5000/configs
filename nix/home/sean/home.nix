@@ -6,6 +6,7 @@
       ./nvim.nix
       ./tmux.nix
       ./fish.nix
+      ./zsh.nix
     ];
 
   # Home Manager needs a bit of information about you and the
@@ -38,8 +39,8 @@
     calcurse
     font-awesome
     brightnessctl
-    fractal # matrix
-    signal-desktop
+    # fractal # matrix
+    # signal-desktop
     firefox
 
     # Nix Utils
@@ -55,30 +56,6 @@
     enable = true;
     userName = "Sean Flinn";
     userEmail = "sflinn54@gmail.com";
-  };
-
-  programs.zsh = {
-    enable = true;
-    enableAutosuggestions = true;
-    # enableCompletion = true;
-    # enableSyntaxHighlighting = true;
-    dotDir = ".config/zsh";
-    shellAliases = {
-      system-update = "sudo nixos-rebuild switch --upgrade -I nixos-config=/home/sean/configs/nix/system/configuration.nix";
-      home-update = "nix-channel --update && home-manager switch -f ~/configs/nix/home/sean/home.nix";
-    };
-    history = {
-      ignoreDups = true;
-      size = 1000;
-      save = 1000;
-      path = "$HOME/.config/zsh/history";
-    };
-    initExtra = ''
-      set -o vi
-      PS1='%B%F{043}%n %fin %B%F{222}%~%f: '
-      IS_NIX='true'
-      # neofetch
-    '';
   };
 
   # manage fonts via home manager
