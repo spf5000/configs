@@ -47,6 +47,7 @@
     nix-prefetch-github
 
     # Rust
+    gcc
     rustc
     cargo
     rust-analyzer

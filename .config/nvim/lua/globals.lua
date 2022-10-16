@@ -21,8 +21,15 @@ vim.opt.incsearch = true
 vim.opt.errorbells = false
 vim.g.mapleader = ' '
 
+--netrw config
+vim.g.netrw_banner = 0
+vim.g.netrw_liststyle = 3
+vim.g.netrw_browse_split = 4
+vim.g.netrw_altv = 1
+vim.g.netrw_winsize = 18
+
 -- AutoSave on exit
-vim.cmd[[autocmd TextChanged,FocusLost,BufEnter * silent update]]
+-- vim.cmd[[autocmd TextChanged,FocusLost,BufEnter * silent update]]
 
 -- theme
 vim.cmd'syntax enable'
