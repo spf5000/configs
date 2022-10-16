@@ -50,6 +50,11 @@
     rustc
     cargo
     rust-analyzer
+
+    # Rust Apps
+    lsd
+    bat
+    ripgrep
   ];
 
   programs.git = {

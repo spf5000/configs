@@ -7,6 +7,9 @@
     shellAliases = {
       system-update = "sudo nixos-rebuild switch --upgrade -I nixos-config=/home/sean/configs/nix/system/configuration.nix";
       home-update = "nix-channel --update && home-manager switch -f ~/configs/nix/home/sean/home.nix";
+      ls = "lsd";
+      cat = "bat";
+      grep = "rg";
     };
     history = {
       ignoreDups = true;
