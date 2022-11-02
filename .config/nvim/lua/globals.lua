@@ -31,6 +31,9 @@ vim.g.netrw_winsize = 18
 -- AutoSave on exit
 -- vim.cmd[[autocmd TextChanged,FocusLost,BufEnter * silent update]]
 
+-- Tab completion
+vim.o.wildcharm = ('\t'):byte()
+
 -- theme
 vim.cmd'syntax enable'
 vim.o.termguicolors = true
