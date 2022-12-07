@@ -2,7 +2,7 @@ local nvim_lsp = require('lspconfig')
 local cmp = require('cmp')
 
 -- Hook LSP into completion
-local my_capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp
+local my_capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp
   .protocol
   .make_client_capabilities())
 

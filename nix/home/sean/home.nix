@@ -41,15 +41,21 @@
     brightnessctl
     # fractal # matrix
     # signal-desktop
-    firefox
+    # firefox
 
     # Nix Utils
     nix-prefetch-github
 
+    # Sway
+    # sway
+    swaylock
+    waybar
+    wofi
+    wl-clipboard
+
     # Rust
     gcc
-    rustc
-    cargo
+    rustup
     rust-analyzer
 
     # Rust Apps
@@ -71,5 +77,5 @@
   xdg.configFile."alacritty".source = ~/configs/.config/alacritty;
   xdg.configFile."sway".source = ~/configs/.config/sway;
   xdg.configFile."swaylock".source = ~/configs/.config/swaylock;
-  xdg.configFile."qtile".source = ~/configs/.config/qtile;
+  xdg.configFile."waybar".source = ~/configs/.config/waybar;
 }

@@ -17,8 +17,12 @@ set $up k
 set $right l
 
 # Your preferred terminal emulator
-set $shell /bin/zsh
-set $term alacritty -e $shell
+set $shell zsh
+# Normal Terminal
+# set $term alacritty -e $shell
+# Nix/Home Manager Terminal
+set $term LD_PRELOAD=/lib/x86_64-linux-gnu/libnss_sss.so.2 nixGL alacritty -e $shell
+
 
 # Your preferred web browser
 # set $browser qutebrowser
@@ -135,45 +139,26 @@ bindsym XF86MonBrightnessDown exec brightnessctl s 5%-
     # mouse button for dragging.
     floating_modifier $mod normal
 
-  # nag
-  set {
-    $nag         exec swaynagmode
-    $nag_exit    $nag --exit
-    $nag_confirm $nag --confirm
-    $nag_select  $nag --select
-  }
-
-  mode "nag" {
-    bindsym {
-      Ctrl+d    mode "default"
-
-      Ctrl+c    $nag_exit
-      q         $nag_exit
-      Escape    $nag_exit
-
-      Return    $nag_confirm
-
-      Tab       $nag_select prev
-      Shift+Tab $nag_select next
-
-      Left      $nag_select next
-      $left     $nag_select next
-      Right     $nag_select prev
-      $right    $nag_select prev
-
-      Up        $nag_select next
-      Down      $nag_select prev
+    # exit prompt
+    set {
+      $exit     mode "default"
+      $logout   swaymsg exit
+      $restart  reboot
+      $shutdown shutdown now
     }
-  }
 
-    # Exit sway (logs you out of your Wayland session)
-    bindsym $mod+Shift+e exec $nag -t warning -m \
-        'You pressed the exit shortcut. What do you want?' \
-        -b 'Logout' 'swaymsg exit' \
-        -b 'Sleep' 'systemctl suspend' \
-        -b 'Hibernate' 'systemctl hibernate' \
-        -b 'Reboot' 'systemctl reboot' \
-        -b 'Poweroff' 'systemctl poweroff'
+    mode "exit" {
+      bindsym {
+        Ctrl+c    $exit
+        q         $exit
+        Escape    $exit
+
+        l         $logout
+        s         $shutdown
+        r         $restart
+      }
+    }
+    bindsym $mod+Shift+e exec swaynag -t warning -m '[l]ogout, [s]hutdown, [r]eboot, or Escape.' mode "exit"
 
 #
 # Moving around:
@@ -238,8 +223,8 @@ bindsym XF86MonBrightnessDown exec brightnessctl s 5%-
     bindsym $mod+Shift+0 move container to workspace $workspace10
 
 # Multi-monitor workspace config
-workspace $workspace1 output eDP-1
-workspace $workspace2 output eDP-1
+workspace $workspace1 output DP-2
+workspace $workspace2 output DP-2
 workspace $workspace3 output eDP-1
 workspace $workspace4 output DP-2
 workspace $workspace5 output DP-2

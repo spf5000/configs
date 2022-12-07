@@ -1,8 +1,7 @@
 #!/bin/sh
 
 export TERMINAL="termite"
-export BROWSER="qutebrowser"
-export XDG_CONFIG_HOME="/home/sean/.config"
+export BROWSER="firefox"
 
 # Wayland ENV Variables
 export _JAVA_AWT_WM_NONREPARENTING=1

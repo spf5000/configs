@@ -4,7 +4,7 @@
   programs.tmux = {
     enable = true;
     shortcut = "Space";
-    shell = "/home/sean/.nix-profile/bin/zsh";
+    shell = "~/.nix-profile/bin/zsh";
     terminal = "tmux-256color";
     extraConfig = ''
       # Colors for alacritty
@@ -13,7 +13,10 @@
       # Vim setup
       set-window-option -g mode-keys vi
       bind-key -T copy-mode-vi 'v' send -X begin-selection
-      bind-key -T copy-mode-vi 'y' send -X copy-pipe-and-cancel "xclip -i -f -selection primary | xclip -- -selection clipboard"
+      # X11
+      # bind-key -T copy-mode-vi 'y' send -X copy-pipe-and-cancel "xclip -in -selection clipboard"
+      # Wayland
+      bind-key -T copy-mode-vi 'y' send -X copy-pipe-and-cancel "wl-copy"
     '';
   };
 }

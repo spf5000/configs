@@ -1,0 +1,6 @@
+[Desktop Entry]
+Name=Sway
+Comment=This session logs you into SwayWM
+Exec=/home/ANT.AMAZON.COM/seaflinn/configs/bin/sway-run
+TryExec=/home/ANT.AMAZON.COM/seaflinn/configs/bin/sway-run
+Type=Application
