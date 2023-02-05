@@ -19,9 +19,9 @@ set $right l
 # Your preferred terminal emulator
 set $shell zsh
 # Normal Terminal
-# set $term alacritty -e $shell
+set $term alacritty -e $shell
 # Nix/Home Manager Terminal
-set $term LD_PRELOAD=/lib/x86_64-linux-gnu/libnss_sss.so.2 nixGL alacritty -e $shell
+# set $term LD_PRELOAD=/lib/x86_64-linux-gnu/libnss_sss.so.2 nixGL alacritty -e $shell
 
 
 # Your preferred web browser
@@ -63,10 +63,10 @@ output DP-2 resolution 3440x1440 position 1920 0
 #
 # Example configuration:
 #
-exec swayidle -w \
-         timeout 1500 'swaylock -f -c 000000' \
-         timeout 2100 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
-         before-sleep 'swaylock -f -c 000000'
+# exec swayidle -w \
+#          timeout 1500 'swaylock -f -c 000000' \
+#          timeout 2100 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
+#          before-sleep 'swaylock -f -c 000000'
 
 # This will lock your screen after 300 seconds of inactivity, then turn off
 # your displays after another 300 seconds, and turn your screens back on when

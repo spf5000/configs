@@ -29,11 +29,11 @@
 
   # Packages
   home.packages = with pkgs; [
-    alacritty
+    # alacritty
     neofetch
     figlet
     xclip
-    tmux
+    # tmux
     dmenu
     rofi
     calcurse
