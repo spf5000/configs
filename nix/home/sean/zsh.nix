@@ -1,5 +1,8 @@
 { config, pkgs, ... }:
 
+let
+    inputs = import ~/configs/nix/inputs.nix;
+in
 {
   programs.zsh = {
     enable = true;
@@ -7,6 +10,7 @@
     shellAliases = {
       system-update = "sudo nixos-rebuild switch --upgrade -I nixos-config=/home/sean/configs/nix/system/configuration.nix";
       home-update = "nix-channel --update && home-manager switch -f ~/configs/nix/home/sean/home.nix";
+      quick-home-update = "home-manager switch -f ~/configs/nix/home/sean/home.nix";
       ls = "lsd";
       cat = "bat";
       grep = "rg";
@@ -36,7 +40,7 @@
     ];
     initExtra = ''
       set -o vi
-      PS1='%B%F{043}%n %fin %B%F{222}%~%f: '
+      PS1='%B%F{043}${inputs.shell} %fin %B%F{222}%~%f: '
       ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE=0
     '';
   };

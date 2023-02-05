@@ -5,7 +5,6 @@
     [
       ./nvim.nix
       ./tmux.nix
-      ./fish.nix
       ./zsh.nix
     ];
 

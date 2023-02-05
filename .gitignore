@@ -1,3 +1,6 @@
+# Exclude nix inputs files because it includes private inputs.
+nix/inputs.nix
+
 .config/qutebrowser/bookmarks
 .config/qutebrowser/quickmarks
 .config/qutebrowser/qutebrowser
