@@ -3,7 +3,10 @@
 let 
   inputs = import /home/sean/configs/nix/inputs.nix;
 in {
-  imports = ["${fetchTarball "https://github.com/NixOS/nixos-hardware/archive/936e4649098d6a5e0762058cb7687be1b2d90550.tar.gz" }/raspberry-pi/4"];
+  imports = [
+    "${fetchTarball "https://github.com/NixOS/nixos-hardware/archive/936e4649098d6a5e0762058cb7687be1b2d90550.tar.gz" }/raspberry-pi/4"
+    ./docker.nix
+  ];
 
   system.stateVersion = "22.11";
 
@@ -24,16 +27,18 @@ in {
     };
   };
 
-  environment.systemPackages = with pkgs; [ vim ];
+  environment.systemPackages = with pkgs; [ 
+  ];
 
   services.openssh.enable = true;
 
   users = {
     mutableUsers = false;
+    defaultUserShell = pkgs.zsh;
     users."${inputs.user}" = {
       isNormalUser = true;
       password = "${inputs.password}";
-      extraGroups = [ "wheel" ];
+      extraGroups = [ "wheel" "podman" ];
     };
   };
 
