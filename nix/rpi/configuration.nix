@@ -6,6 +6,7 @@ in {
   imports = [
     "${fetchTarball "https://github.com/NixOS/nixos-hardware/archive/936e4649098d6a5e0762058cb7687be1b2d90550.tar.gz" }/raspberry-pi/4"
     ./docker.nix
+    ./home-assistant.nix
   ];
 
   system.stateVersion = "22.11";
