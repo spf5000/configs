@@ -6,6 +6,7 @@ in {
   imports = [
     "${fetchTarball "https://github.com/NixOS/nixos-hardware/archive/936e4649098d6a5e0762058cb7687be1b2d90550.tar.gz" }/raspberry-pi/4"
     ./docker.nix
+    ./omada-controller.nix
     ./home-assistant.nix
   ];
 
@@ -22,9 +23,9 @@ in {
   networking = {
     hostName = "${inputs.hostname}";
     wireless = {
-      enable = true;
-      networks."${inputs.SSID}".psk = "${inputs.SSIDpassword}";
-      interfaces = [ "${inputs.interface}"];
+      enable = false;
+    #   networks."${inputs.SSID}".psk = "${inputs.SSIDpassword}";
+    #   interfaces = [ "${inputs.interface}"];
     };
   };
 
@@ -42,7 +43,6 @@ in {
       extraGroups = [ "wheel" "podman" ];
     };
   };
-
 
   # Enable GPU acceleration
   hardware.raspberry-pi."4".fkms-3d.enable = true;

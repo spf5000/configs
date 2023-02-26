@@ -8,29 +8,27 @@
       cp -rf /home/sean/configs/home-assistant/* $volume_path
     '';
 
+    # Expose ports in the firewall
+    networking.firewall = {
+        allowedTCPPorts = [ 
+            8123
+            21063 # homekit port
+        ];
+        allowedUDPPorts = [
+            5353 # homekit port
+        ];
+    };
+
     # Setup home-assistant docker container
     virtualisation.oci-containers.containers.home-assistant = {
         image = "docker.io/homeassistant/home-assistant:2023.2";
         autoStart = true;
         environment.TZ = "Europe/Berlin";
-        # volumes = [ "/var/home-assistant:/config" ];
         volumes = [ "home-assistant:/config" ];
-        # extraOptions = [ 
-        #     "--network=host" 
-        # ];
-        ports = [
-            "8123:8123"
-            "40000:40000"
-            "58035:58035/udp"
-            "58320:58320/udp"
-            "5353:5353/udp"
-            "1900:1900/udp"
-            "1900:1900/udp"
-            "43727:43727/udp"
-
-            # homekit ports
-            "5353:5353/udp"
-            "21063:21063"
+        extraOptions = [ 
+            "--network=host"
+            "--device=/dev/ttyUSB0:/dev/ttyUSB0"
+            "--device=/dev/ttyUSB1:/dev/ttyUSB1"
         ];
     };
 }

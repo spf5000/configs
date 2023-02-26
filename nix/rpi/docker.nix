@@ -1,82 +1,32 @@
 { pkgs, ... }:
 {
-    # imports = [ arion.nixosModules.arion ];
+    # Add podman compose for testing.
     environment.systemPackages = with pkgs; [
         podman-compose
     ];
 
+    # Expose docker ports to external (ethernet) interface.
+    # NOTE: You will still need to expose the ports in the firewall per container.
+    networking = {
+        nat = {
+            enable = true;
+            internalInterfaces = ["ve-+"];
+            externalInterface = "eth0";
+            # Lazy IPv6 connectivity for the container
+            enableIPv6 = true;
+        };
+    };
+
     virtualisation = {
         podman = {
             enable = true;
+
+            # "docker" alias for podman
             dockerCompat = true;
-            # dockerSocket.enable = true;
 
             # Required for containers under podman-compose to be able to talk to each other.
             defaultNetwork.dnsname.enable = true;
         };
         oci-containers.backend = "podman";
-        oci-containers.containers = {
-            home-assistant = {
-                image = "docker.io/homeassistant/home-assistant:2023.2";
-                autoStart = true;
-                environment.TZ = "Europe/Berlin";
-                volumes = [ "home-assistant:/config" ];
-                # extraOptions = [ 
-                #     "--network=host" 
-                # ];
-                ports = [
-                    "8123:8123"
-                    "40000:40000"
-                    "58035:58035/udp"
-                    "58320:58320/udp"
-                    "5353:5353/udp"
-                    "1900:1900/udp"
-                    "1900:1900/udp"
-                    "43727:43727/udp"
-
-                    # homekit ports
-                    "5353:5353/udp"
-                    "21063:21063"
-                ];
-            };
-            omada-controller = {
-                image = "docker.io/mbentley/omada-controller:5.7";
-                autoStart = true;
-                ports = [
-                    "8088:8088"
-                    "8043:8043"
-                    "8843:8843"
-                    "27001:27001/udp"
-                    "29810:29810/udp"
-                    "29811:29811"
-                    "29812:29812"
-                    "29813:29813"
-                    "29814:29814"
-                ];
-                environment = {
-                    PUID = "508";
-                    PGID = "508";
-                    MANAGE_HTTP_PORT = "8088";
-                    MANAGE_HTTPS_PORT = "8043";
-                    PORTAL_HTTP_PORT = "8088";
-                    PORTAL_HTTPS_PORT = "8843";
-                    PORT_APP_DISCOVERY = "27001";
-                    PORT_DISCOVERY = "29810";
-                    PORT_MANAGER_V1 = "29811";
-                    PORT_ADOPT_V1 = "29812";
-                    PORT_UPGRADE_V1 = "29813";
-                    PORT_MANAGER_V2 = "29814";
-                    SHOW_SERVER_LOGS = "true";
-                    SHOW_MONGODB_LOGS = "false";
-                    SSL_CERT_NAME = "tls.crt";
-                    SSL_KEY_NAME = "tls.key";
-                    TZ = "Etc/UTC";
-                };
-                volumes = [
-                    "omada-data:/opt/tplink/EAPController/data"
-                    "omada-logs:/opt/tplink/EAPController/logs"
-                ];
-            };
-        };
     };
 }
