@@ -14,7 +14,7 @@
         "tooltip": false
     },
     "clock": {
-        "format": "{:%a %d %b - %H:%M}",
+        "format": "{:%A %F - %r}",
         "tooltip": false,
         "on-click": "gnome-calendar"
     },
