@@ -19,7 +19,8 @@ set $right l
 # Your preferred terminal emulator
 set $shell zsh
 # Normal Terminal
-set $term alacritty -e $shell
+# set $term alacritty -e $shell
+set $term xfce4-terminal -e zsh -e $shell
 # Nix/Home Manager Terminal
 # set $term LD_PRELOAD=/lib/x86_64-linux-gnu/libnss_sss.so.2 nixGL alacritty -e $shell
 
@@ -31,9 +32,12 @@ set $browser firefox
 # Your preferred IDE.
 set $ide _JAVA_AWT_WM_NONREPARENTING=1 idea
 
-# AutoStart Applications
+## AutoStart Applications
 # get sudo creds for GUI applications
 exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+
+# Setup screen sharing with WebRTC. See: https://wiki.archlinux.org/title/PipeWire#xdg-desktop-portal-wlr
+exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
 
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened

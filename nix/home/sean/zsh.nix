@@ -8,11 +8,11 @@ in
     enable = true;
     dotDir = ".config/zsh";
     shellAliases = {
-      system-update = "sudo nixos-rebuild switch --upgrade -I nixos-config=/home/${inputs.user}/configs/nix/${inputs.system_path}/configuration.nix";
+      system-update = "sudo nixos-rebuild switch --upgrade -I nixos-config=~/configs/nix/${inputs.systemPath}/configuration.nix";
       home-update = "nix-channel --update && home-manager switch -f ~/configs/nix/home/sean/home.nix";
       quick-home-update = "home-manager switch -f ~/configs/nix/home/sean/home.nix";
       ls = "lsd";
-      cat = "bat";
+      cat = "bat -p";
       grep = "rg";
     };
     history = {
@@ -21,11 +21,6 @@ in
       save = 1000;
       path = "$HOME/.config/zsh/history";
     };
-    # oh-my-zsh = {
-    #   enable = true;
-    #   plugins = [ "git" ];
-    #   theme = "eastwood";
-    # };
     plugins = [
       {
         # will source zsh-autosuggestions.plugin.zsh

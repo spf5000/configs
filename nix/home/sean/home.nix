@@ -1,6 +1,8 @@
 { config, pkgs, ... }:
 
-{
+let 
+  inputs = import ~/configs/nix/inputs.nix;
+in {
   imports = 
     [
       ./nvim.nix
@@ -10,8 +12,8 @@
 
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
-  home.username = "sean";
-  home.homeDirectory = "/home/sean";
+  home.username = inputs.user;
+  home.homeDirectory = inputs.homeDir;
 
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage
@@ -28,11 +30,11 @@
 
   # Packages
   home.packages = with pkgs; [
+    xfce.xfce4-terminal
     # alacritty
     neofetch
     figlet
     xclip
-    # tmux
     dmenu
     rofi
     calcurse
@@ -61,6 +63,12 @@
     lsd
     bat
     ripgrep
+
+    # Python
+    # pythonPackages.pylsp
+
+    # Node
+    nodePackages.typescript-language-server
   ];
 
   programs.git = {
@@ -77,4 +85,5 @@
   xdg.configFile."sway".source = ~/configs/.config/sway;
   xdg.configFile."swaylock".source = ~/configs/.config/swaylock;
   xdg.configFile."waybar".source = ~/configs/.config/waybar;
+  xdg.configFile."xfce4".source = ~/configs/.config/xfce4;
 }
