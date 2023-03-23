@@ -1,0 +1,13 @@
+views:
+  - title: main
+    icon: mdi:home-outline
+    cards:
+      - type: light
+        entity: light.philips_lwb014_huelight
+        name: Rory's light
+      - type: button
+        entity: cover.garage_door
+        name: Garage Door
+        show_state: true
+        tap_action: toggle
+
