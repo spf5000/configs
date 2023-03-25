@@ -1,13 +1,14 @@
 { config, pkgs, lib, ... }:
 
 let 
-  inputs = import ~/configs/nix/inputs.nix;
+  inputs = import ../inputs.nix;
 in {
   imports = [
     "${fetchTarball "https://github.com/NixOS/nixos-hardware/archive/936e4649098d6a5e0762058cb7687be1b2d90550.tar.gz" }/raspberry-pi/4"
     ./docker.nix
     ./omada-controller.nix
     ./home-assistant.nix
+    ./vpn.nix
   ];
 
   system.stateVersion = "22.11";
@@ -20,14 +21,15 @@ in {
     };
   };
 
-  networking = {
-    hostName = "${inputs.hostname}";
-    wireless = {
-      enable = false;
-    #   networks."${inputs.SSID}".psk = "${inputs.SSIDpassword}";
-    #   interfaces = [ "${inputs.interface}"];
-    };
-  };
+  ## Setup wifi if needed.
+  # networking = {
+  #   hostName = "${inputs.hostname}";
+  #   wireless = {
+  #     enable = false;
+  #     networks."${inputs.SSID}".psk = "${inputs.SSIDpassword}";
+  #     interfaces = [ "${inputs.interface}"];
+  #   };
+  # };
 
   environment.systemPackages = with pkgs; [ 
   ];
