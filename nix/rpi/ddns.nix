@@ -1,8 +1,6 @@
 { config, pkgs, ... }:
-
-let
-    inputs = import ../inputs.nix;
-in {
+{
+    age.secrets.ddnsToken.file = ../../secrets/ddnsToken.agenix;
     systemd.timers."dyndns" = {
       wantedBy = [ "timers.target" ];
         timerConfig = {
@@ -13,7 +11,13 @@ in {
     };
 
     systemd.services."dyndns" = {
-      script = "echo url=\"https://www.duckdns.org/update?domains=${inputs.ddnsSubdomain}&token=${inputs.ddnsToken}&ip=\" | ${pkgs.curl}/bin/curl -k -K -";
+      environment = { 
+          # TODO: This is an anti-pattern. Should find a way to pull this without readFile
+          TOKEN = pkgs.lib.fileContents config.age.secrets.ddnsToken.path;
+      };
+      script = ''
+          echo url="https://www.duckdns.org/update?domains=spf5000&token=$TOKEN&ip=" | ${pkgs.curl}/bin/curl -k -K -
+      '';
       serviceConfig = {
         Type = "oneshot";
         User= "nobody";

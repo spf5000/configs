@@ -8,7 +8,7 @@ in
     enable = true;
     dotDir = ".config/zsh";
     shellAliases = {
-      system-update = "sudo nixos-rebuild switch --upgrade -I nixos-config=~/configs/nix/${inputs.systemPath}/configuration.nix";
+      system-update = "sudo nixos-rebuild switch --upgrade -I nixos-config=/home/sean/configs/nix/${inputs.systemPath}/configuration.nix";
       home-update = "nix-channel --update && home-manager switch -f ~/configs/nix/home/sean/home.nix";
       quick-home-update = "home-manager switch -f ~/configs/nix/home/sean/home.nix";
       ls = "lsd";
@@ -37,6 +37,7 @@ in
       set -o vi
       PS1='%B%F{043}${inputs.shell} %fin %B%F{222}%~%f: '
       ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE=0
+      EDITOR=vim
     '';
   };
 }

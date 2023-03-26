@@ -5,6 +5,7 @@ let
 in {
   imports = [
     "${fetchTarball "https://github.com/NixOS/nixos-hardware/archive/936e4649098d6a5e0762058cb7687be1b2d90550.tar.gz" }/raspberry-pi/4"
+    "${builtins.fetchTarball "https://github.com/ryantm/agenix/archive/main.tar.gz"}/modules/age.nix"
     ./docker.nix
     ./omada-controller.nix
     ./home-assistant.nix
@@ -12,6 +13,7 @@ in {
     ./ddns.nix
   ];
 
+  age.secrets.userPass.file = ../../secrets/userPass.agenix;
   system.stateVersion = "22.11";
 
   fileSystems = {
@@ -33,6 +35,7 @@ in {
   # };
 
   environment.systemPackages = with pkgs; [ 
+      (pkgs.callPackage "${builtins.fetchTarball "https://github.com/ryantm/agenix/archive/main.tar.gz"}/pkgs/agenix.nix" {})
   ];
 
   services.openssh.enable = true;
@@ -42,7 +45,7 @@ in {
     defaultUserShell = pkgs.zsh;
     users."${inputs.user}" = {
       isNormalUser = true;
-      password = "${inputs.password}";
+      passwordFile = config.age.secrets.userPass.path;
       extraGroups = [ "wheel" "podman" ];
     };
   };
