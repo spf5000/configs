@@ -11,4 +11,8 @@
     SSIDpassword = ; # WIFI network password;
     interface = "wlan0"; # WIFI interface name. Typically wlan0
     hostname = ; # hostname of the device
+
+    # DDNS inputs (raspberry pi)
+    ddnsSubdomain = ""; # duck DNS subdomain.
+    ddnsToken = ""; # duck DNS token.
 }

@@ -9,6 +9,7 @@ in {
     ./omada-controller.nix
     ./home-assistant.nix
     ./vpn.nix
+    ./ddns.nix
   ];
 
   system.stateVersion = "22.11";
