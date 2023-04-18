@@ -30,7 +30,8 @@ end
 local servers = { 
     'rust_analyzer', 
     'tsserver',
-    'pylsp'
+    'pylsp',
+    'kotlin_language_server'
 }
 
 for _, lsp in ipairs(servers) do

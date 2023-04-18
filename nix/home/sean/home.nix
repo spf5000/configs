@@ -65,10 +65,13 @@ in {
     ripgrep
 
     # Python
-    # pythonPackages.pylsp
+    python310Packages.python-lsp-server
 
     # Node
     nodePackages.typescript-language-server
+
+    # Kotlin
+    kotlin-language-server
   ];
 
   programs.git = {
