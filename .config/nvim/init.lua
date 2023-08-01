@@ -1,6 +1,7 @@
 require ('globals')
 require ('keybindings')
 require ('lsp')
+require ('treesitter')
 
 function isNix ()
     return os.getenv ("IS_NIX") ~= nil

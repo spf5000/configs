@@ -9,3 +9,4 @@ vim.keymap.set('n', '<leader>fh', telescope.help_tags, opts)
 
 -- File finder
 vim.keymap.set('n', '<leader>nt', ':Vex<CR>', opts)
+vim.keymap.set('n', '<leader>fb', ':Exp<CR>', { desc = '[F]ile [B]rowser'} )

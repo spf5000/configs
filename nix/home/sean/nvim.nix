@@ -9,23 +9,33 @@
         :luafile ~/configs/.config/nvim/init.lua
       '';
       plugins = with pkgs.vimPlugins; [
+        # theme
         dracula-vim
+
+        # Telescope (fuzzy finder)
         plenary-nvim
         telescope-nvim
 
+        # Treesitter (highlighting, function jumps, etc.)
+	nvim-treesitter
+
+        # LSP settup.
         nvim-lspconfig
+
+	# LSP Code completion
         nvim-cmp
         cmp-nvim-lsp
-        cmp-buffer
-        cmp-vsnip
-        vim-vsnip
+
+	# Code snippets
+        luasnip
+        cmp_luasnip
+        # cmp-buffer
+	# vim-vsnip
+
+	# neovim LSP
+	neodev-nvim
       ];
-      # extraConfig = ''
-      #   lua << EOF
-      #     ${lib.strings.fileContents $HOME/configs/.config/nvim/temp.lua}
-      #     EOF
-      # '';
   };
-  xdg.configFile."nvim/settings.lua".source = ~/configs/.config/nvim/init.lua;
+  # xdg.configFile."nvim/settings.lua".source = ~/configs/.config/nvim/init.lua;
   xdg.configFile."nvim/lua".source = ~/configs/.config/nvim/lua;
 }

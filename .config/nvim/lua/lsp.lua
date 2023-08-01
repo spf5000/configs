@@ -1,14 +1,8 @@
 local nvim_lsp = require('lspconfig')
-local cmp = require('cmp')
-
--- Hook LSP into completion
-local my_capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp
-  .protocol
-  .make_client_capabilities())
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
-local my_on_attach = function()
+local my_on_attach = function(_, bufnr)
     -- Mappings.
     -- See `:help vim.lsp.*` for documentation on any of the below functions
     local opts = { buffer = 0 }
@@ -23,6 +17,11 @@ local my_on_attach = function()
     vim.keymap.set("n", "ga", vim.lsp.buf.code_action, {buffer = 0})
     vim.keymap.set("n", "en", vim.diagnostic.goto_next, {buffer = 0})
     vim.keymap.set("n", "ep", vim.diagnostic.goto_prev, {buffer = 0})
+
+    -- Creates a command `:Format` local to the LSP buffer
+    vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
+        vim.lsp.buf.format()
+    end, { desc = 'Format current buffer with LSP' })
 end
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
@@ -33,6 +32,14 @@ local servers = {
     'pylsp',
     'kotlin_language_server'
 }
+
+-- Setup neodev (nvim LSP)
+require('neodev').setup()
+
+-- Hook LSP into completion
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
+
 
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
@@ -49,11 +56,14 @@ vim.opt.completeopt = {"menu", "menuone", "noselect"} -- setting vim values
 
 -- Setup nvim-cmp
 local cmp = require 'cmp'
+local luasnip = require 'luasnip'
+require('luasnip.loaders.from_vscode').lazy_load()
+luasnip.config.setup {}
 
 cmp.setup({
     snippet = {
         expand = function(args)
-            vim.fn["vsnip#anonymous"](args.body) 
+            luasnip.sp_expand(args.body)
         end
     },
     mapping = {
@@ -70,10 +80,10 @@ cmp.setup({
         -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
         ['<CR>'] = cmp.mapping.confirm({select = true})
     },
-    sources = cmp.config.sources({
+    sources = {
         {name = 'nvim_lsp'},
-        { name = 'vsnip' }, 
-    }, {{name = 'buffer'}})
+        { name = 'luasnip' }, 
+    }
 })
 
 -- Enable inline errors

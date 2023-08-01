@@ -40,6 +40,7 @@ in {
     calcurse
     font-awesome
     brightnessctl
+    dua
     # fractal # matrix
     # signal-desktop
     # firefox
