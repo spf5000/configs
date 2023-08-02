@@ -17,23 +17,23 @@
         telescope-nvim
 
         # Treesitter (highlighting, function jumps, etc.)
-	nvim-treesitter
+        (nvim-treesitter.withPlugins (p: [ p.go p.lua p.vim p.query p.rust]))
 
         # LSP settup.
         nvim-lspconfig
 
-	# LSP Code completion
+        # LSP Code completion
         nvim-cmp
         cmp-nvim-lsp
 
-	# Code snippets
+        # Code snippets
         luasnip
         cmp_luasnip
         # cmp-buffer
-	# vim-vsnip
+        # vim-vsnip
 
-	# neovim LSP
-	neodev-nvim
+        # neovim LSP
+        neodev-nvim
       ];
   };
   # xdg.configFile."nvim/settings.lua".source = ~/configs/.config/nvim/init.lua;
