@@ -43,36 +43,33 @@ in {
     dua
     # fractal # matrix
     # signal-desktop
-    # firefox
+    firefox
 
     # Nix Utils
     nix-prefetch-github
 
-    # Sway
-    # sway
+    # Sway / Hyprland
     swaylock
-    waybar
+    (waybar.overrideAttrs (oldAttrs: {
+        mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
+    }))
     wofi
     wl-clipboard
 
     # Rust
     gcc
     rustup
-    rust-analyzer
 
     # Rust Apps
     lsd
     bat
     ripgrep
 
-    # Python
+    # LSPs
     python310Packages.python-lsp-server
-
-    # Node
     nodePackages.typescript-language-server
-
-    # Kotlin
     kotlin-language-server
+    nil
   ];
 
   programs.git = {
@@ -90,4 +87,6 @@ in {
   xdg.configFile."swaylock".source = ~/configs/.config/swaylock;
   xdg.configFile."waybar".source = ~/configs/.config/waybar;
   xdg.configFile."xfce4".source = ~/configs/.config/xfce4;
-}
+  xdg.configFile."hypr".source = ~/configs/.config/hypr;
+  xdg.configFile."nix".source = ~/configs/.config/nix;
+ }

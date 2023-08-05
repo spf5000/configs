@@ -9,4 +9,4 @@ nix/inputs.nix
 **/__pycache__/
 
 # Exclude parsers downloaded by treesitter
-.config/nvim/treesitter_parsers
+.config/nvim/treesitter_parsers/**/*

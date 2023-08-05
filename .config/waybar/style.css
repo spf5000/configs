@@ -42,7 +42,7 @@ window#waybar.empty {
     color: rgba(217, 216, 216, 1);
 }
 
-#workspaces button.focused {
+#workspaces button.active {
     border-top: 3px solid rgba(217, 216, 216, 1);
     border-bottom: 3px solid rgba(217, 216, 216, 1);
 }
@@ -60,7 +60,7 @@ window#waybar.empty {
 
 /* Repeat style here to ensure properties are overwritten as there's no !important and button:hover above resets the colour */
 
-#workspaces button.focused {
+#workspaces button.active {
     color: white;
 }
 

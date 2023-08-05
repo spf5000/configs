@@ -3,14 +3,15 @@
     // Big improvement, thanks luispabon :)
     "layer": "top",
     "position": "top",
-    "modules-left": ["sway/workspaces", "sway/mode", "sway/window"],
+    "modules-left": ["wlr/workspaces", "hyprland/submap", "sway/mode", "hyprland/window"],
     "modules-center": ["clock"],
     "modules-right": ["pulseaudio", "backlight", "network", "cpu", "custom/weather", "battery"],
     "sway/mode": {
         "format": " {}"
     },
-    "sway/window": {
+    "hyprland/window": {
         "max-length": 60,
+        "separate-outputs": true,
         "tooltip": false
     },
     "clock": {
