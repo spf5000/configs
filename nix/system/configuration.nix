@@ -15,8 +15,6 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "nixos"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-  # networking.wireless.userControlled.enable = true;  # Enables wireless support via wpa_supplicant.
   networking.networkmanager.enable = true;
 
   # Set your time zone.
@@ -29,18 +27,7 @@
         enable = true;
         wayland = true;
     };
-
-    # desktopManager = {
-    #   xterm.enable = false;
-    # };
-    # layout = "us";
-
-    # Enable touchpad support (enabled default in most desktopManager).
-    # libinput.enable = true;
   };
-
-  # Enable CUPS to print documents.
-  # services.printing.enable = true;
 
   # Enable sound.
   sound.enable = true;
@@ -68,10 +55,14 @@
   environment.systemPackages = with pkgs; [
     gparted
     pavucontrol # volume management
+    signal-desktop
 
     # default Hyprland terminal
     kitty
   ];
+
+  # Flatpak
+  services.flatpak.enable = true;
 
   # Hyperland
   programs.hyprland = {
@@ -83,39 +74,12 @@
     WLR_NO_HARDWARE_CURSORS = "1";
     NIXOS_OSMZONE_WL = "1";
   };
-  # # Wayland screen sharing
-  # xdg.portal = {
-  #     enable = true;
-  #     extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
-  # };
+  # Wayland screen sharing
+  xdg.portal = {
+      enable = true;
+      extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+  };
 
-  # Sway WM
-  # programs.sway = {
-  #   enable = true;
-  #   xwayland.enable = true;
-  #   wrapperFeatures.gtk = true;
-  #   extraPackages = with pkgs; [
-  #     swaylock
-  #     swayidle
-  #     wl-clipboard
-  #     mako # notifcation daemon
-  #     wofi # launcher
-  #   ];
-  #   extraSessionCommands = ''
-  #     export SDL_VIDEODRIVER=wayland
-  #     export QT_QPA_PLATFORM=wayland
-  #     export QT_WAYLAND_DISABLE_WINDOWDECORATION="1"
-  #     export _JAVA_AWS_WM_NONREPARENTING=1
-  #     export MOZ_ENABLE_WAYLAND=1
-  #   '';
-  # };
-  # programs.light.enable = true;
-
-
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "23.05"; # Did you read the comment?
