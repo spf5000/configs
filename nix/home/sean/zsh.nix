@@ -8,7 +8,7 @@ in
     enable = true;
     dotDir = ".config/zsh";
     shellAliases = {
-      system-update = "sudo nixos-rebuild switch --upgrade -I nixos-config=/home/sean/configs/nix/${inputs.systemPath}/configuration.nix";
+      system-update = "sudo nixos-rebuild switch --flake /home/sean/configs/nix/system#laptop --impure";
       home-update = "nix-channel --update && home-manager switch -f ~/configs/nix/home/sean/home.nix";
       quick-home-update = "home-manager switch -f ~/configs/nix/home/sean/home.nix";
       ls = "lsd";
