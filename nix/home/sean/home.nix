@@ -49,13 +49,18 @@ in {
     # Nix Utils
     nix-prefetch-github
 
+    # NixGL to run nix graphical applications on non-NixOS systems
+    nixgl.auto.nixGLDefault
+
     # Sway / Hyprland
-    swaylock
+    swaylock # lockscreen
     (waybar.overrideAttrs (oldAttrs: {
         mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
     }))
-    wofi
-    wl-clipboard
+    wofi # app launcher
+    wl-clipboard # clipboard management (cli)
+    swaybg # wallpaper launcher
+    mako # notification daemon
 
     # Rust
     gcc

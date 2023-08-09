@@ -3,7 +3,8 @@
     // Big improvement, thanks luispabon :)
     "layer": "top",
     "position": "top",
-    "modules-left": ["wlr/workspaces", "hyprland/submap", "hyprland/window"],
+    // "modules-left": ["wlr/workspaces", "hyprland/submap", "hyprland/window"],
+    "modules-left": ["wlr/workspaces", "hyprland/submap"],
     "modules-center": ["clock"],
     "modules-right": ["pulseaudio", "backlight", "network", "cpu", "battery", "tray"],
     "hyprland/submap": {
