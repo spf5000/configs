@@ -8,6 +8,7 @@ in {
       ./nvim.nix
       ./tmux.nix
       ./zsh.nix
+      ./hyprland.nix
     ];
 
   # Home Manager needs a bit of information about you and the
@@ -31,7 +32,7 @@ in {
   # Packages
   home.packages = with pkgs; [
     xfce.xfce4-terminal
-    # alacritty
+    alacritty
     neofetch
     figlet
     xclip

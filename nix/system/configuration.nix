@@ -27,6 +27,10 @@
         enable = true;
         wayland = true;
     };
+    desktopManager.gnome = {
+        enable = true;
+        wayland = true;
+    };
   };
 
   # Enable sound.

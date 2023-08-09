@@ -3,16 +3,19 @@
     // Big improvement, thanks luispabon :)
     "layer": "top",
     "position": "top",
-    "modules-left": ["wlr/workspaces", "hyprland/submap", "sway/mode", "hyprland/window"],
+    "modules-left": ["wlr/workspaces", "hyprland/submap", "hyprland/window"],
     "modules-center": ["clock"],
-    "modules-right": ["pulseaudio", "backlight", "network", "cpu", "custom/weather", "battery"],
-    "sway/mode": {
+    "modules-right": ["pulseaudio", "backlight", "network", "cpu", "battery", "tray"],
+    "hyprland/submap": {
         "format": " {}"
     },
+    "wlr/workspaces": {
+        "sort-by-number": true,
+        "on-click": "activate",
+    },
     "hyprland/window": {
-        "max-length": 60,
+        "max-length": 200,
         "separate-outputs": true,
-        "tooltip": false
     },
     "clock": {
         "format": "{:%A %F - %r}",
@@ -23,16 +26,6 @@
         "interval": 10,
         "format": "{usage}% ",
         "on-click": "alacritty -e top"
-    },
-    // TODO: figure this out and then add it back
-    "custom/powermenu": {
-        "return-type": "json",
-        "exec": "~/.config/waybar/modules/powermenu.sh",
-        "format": "<span font='Font Awesome 5 Free 9'>{icon}</span>  {}",
-        "format-icons": [""],
-        "interval": 3600,
-        "escape": true,
-        "on-click": "~/.config/sway/scripts/power-menu.sh"
     },
     "battery": {
         "format": "<span font='Font Awesome 5 Free 11'>{icon}</span>  {capacity}% - {time}",
@@ -77,27 +70,6 @@
         "format": "{percent}% {icon}",
         "format-icons": ["", ""]
     },
-    "custom/weather": {
-        "format": "{}",
-        "format-alt": "{alt}: {}",
-        "format-alt-click": "click-right",
-        "interval": 1800,
-        "return-type": "json",
-        "exec": "~/.config/waybar/modules/weather.sh",
-        "exec-if": "ping wttr.in -c1",
-        "on-click": "gnome-weather"
-    },
-    "idle_inhibitor": {
-        "format": "{icon}",
-        "format-alt": "{icon} idle {status}",
-        "format-alt-click": "click-right",
-        "format-icons": {
-            "activated": "<span font='Font Awesome 5 Free 9'></span>",
-            "deactivated": "<span font='Font Awesome 5 Free 9'></span>"
-        },
-        "tooltip": false
-    },
-
     "tray": {
         "icon-size": 18,
         "spacing": 18
