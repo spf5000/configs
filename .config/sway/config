@@ -20,7 +20,7 @@ set $right l
 set $shell zsh
 # Normal Terminal
 # set $term alacritty -e $shell
-set $term xfce4-terminal -e zsh -e $shell
+set $term xfce4-terminal -e tmux
 # Nix/Home Manager Terminal
 # set $term LD_PRELOAD=/lib/x86_64-linux-gnu/libnss_sss.so.2 nixGL alacritty -e $shell
 
@@ -52,7 +52,7 @@ for_window [title="nmtui"] floating enabled
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-# output * bg /home/sean/.wallpapers/wallpaper fill
+output * bg ~/configs/wallpaper.jpg fill
 #
 # Example configuration:
 #
@@ -146,10 +146,11 @@ bindsym XF86MonBrightnessDown exec brightnessctl s 5%-
     # exit prompt
     set {
       $exit     mode "default"
-      $logout   swaymsg exit
+      $logout   exec swaymsg exit
       $restart  exec reboot
       $shutdown exec shutdown now
-      $mode_exit [l]ogout, [s]hutdown, [r]eboot, or Escape.
+      $hibernate exec systemctl hibernate
+      $mode_exit [l]ogout, [s]hutdown, [r]eboot, [h]ibernate or Escape.
     }
 
     mode "$mode_exit" {
@@ -161,6 +162,7 @@ bindsym XF86MonBrightnessDown exec brightnessctl s 5%-
         l         $logout
         s         $shutdown
         r         $restart
+        h         $hibernate
       }
     }
     bindsym $mod+Shift+e mode "$mode_exit"

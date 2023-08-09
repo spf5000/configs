@@ -12,10 +12,15 @@
       };
 
       # Hyprland Tiling Window Manager
-      hyprland.url = "github:hyprwm/Hyprland";
+      hyprland = {
+          url = "github:hyprwm/Hyprland";
+      };
 
       # nixGL so we can run nix graphical applications on non-NixOS (Linux) systems
-      nixgl.url = "github:guibou/nixGL";
+      nixgl = {
+          url = "github:guibou/nixGL";
+          inputs.nixpkgs.follows = "hyprland/nixpkgs";
+      };
   };
 
   outputs = { self, nixpkgs, home-manager, hyprland, nixgl }: 

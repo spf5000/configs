@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
 # initializing wallpaper
-swaybg -i ~/configs/.config/hypr/wallpaper.jpg &
+swaybg -i ~/configs/wallpaper.jpg &
 
 # notification manager
 mako &
 
 # initialize bar
-waybar &
+waybar -c ~/configs/.config/waybar/hyprland-config &

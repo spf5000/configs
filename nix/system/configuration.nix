@@ -20,6 +20,16 @@
   # Set your time zone.
   time.timeZone = "America/Los_Angeles";
 
+  # Enable OpenGL
+  hardware.opengl.enable = true;
+
+  # Setting package caches to speed up builds
+  nix.settings = {
+    substituters = ["https://hyprland.cachix.org"];
+    trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="];
+    trusted-users = ["@wheel"];
+  };
+
   # Enable the X11 windowing system.
   services.xserver = {
     enable = true;
@@ -27,13 +37,10 @@
         enable = true;
         wayland = true;
     };
-    desktopManager.gnome = {
-        enable = true;
-        wayland = true;
-    };
   };
 
   # Enable sound.
+  hardware.pulseaudio.enable = false;
   sound.enable = true;
   security.rtkit.enable = true;
   services.pipewire = {
@@ -58,6 +65,7 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     gparted
+    brave
     pavucontrol # volume management
     signal-desktop
 
@@ -68,19 +76,28 @@
   # Flatpak
   services.flatpak.enable = true;
 
-  # Hyperland
-  programs.hyprland = {
-      enable = true;
-      xwayland.enable = true;
-  };
   # Wayland session variables.
   environment.sessionVariables = {
     WLR_NO_HARDWARE_CURSORS = "1";
     NIXOS_OSMZONE_WL = "1";
   };
+
+  # Hyperland
+  # programs.hyprland = {
+  #     enable = true;
+  #     xwayland.enable = true;
+  # };
+
+  # Sway
+  programs.sway = {
+      enable = true;
+      wrapperFeatures.gtk = true;
+  };
+
   # Wayland screen sharing
   xdg.portal = {
       enable = true;
+      wlr.enable = true;
       extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
   };
 

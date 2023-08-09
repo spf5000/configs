@@ -42,6 +42,13 @@ window#waybar.empty {
     color: rgba(217, 216, 216, 1);
 }
 
+/* Sway */
+#workspaces button.focused {
+    border-top: 3px solid rgba(217, 216, 216, 1);
+    border-bottom: 3px solid rgba(217, 216, 216, 1);
+}
+
+/* Hyprland */
 #workspaces button.active {
     border-top: 3px solid rgba(217, 216, 216, 1);
     border-bottom: 3px solid rgba(217, 216, 216, 1);
