@@ -3,7 +3,8 @@
 
   inputs = {
       # Nix packages. Used for system and home-manager
-      nixpkgs.url = "nixpkgs/release-23.05";
+      nixpkgs.url = "nixpkgs/nixos-23.05";
+      nixpkgs-unstable.url = "nixpkgs/nixos-unstable";
 
       # Home Manager <3
       home-manager = {
@@ -12,28 +13,15 @@
       };
 
       # Hyprland Tiling Window Manager
-      hyprland = {
-          url = "github:hyprwm/Hyprland";
-      };
+      hyprland.url = "github:hyprwm/Hyprland";
 
       # nixGL so we can run nix graphical applications on non-NixOS (Linux) systems
-      nixgl = {
-          url = "github:guibou/nixGL";
-          inputs.nixpkgs.follows = "hyprland/nixpkgs";
-      };
+      nixgl.url = "github:guibou/nixGL";
   };
 
-  outputs = { self, nixpkgs, home-manager, hyprland, nixgl }: 
+  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, hyprland, nixgl }@inputs : 
   let
       system = "x86_64-linux";
-      pkgs = import nixpkgs {
-          inherit system;
-          config = {
-              allowUnfree = true;
-          };
-          # nixGL overlay
-          overlays = [ nixgl.overlay ];
-      };
   in
   {
       nixosConfigurations.laptop = nixpkgs.lib.nixosSystem {
@@ -42,9 +30,24 @@
       };
 
       homeConfigurations.sean = home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
+          # Using unstable packages so nixGL will build with the latest mesa drivers.
+          pkgs = import nixpkgs-unstable {
+          # pkgs = import nixpkgs {
+              inherit system;
+              config = {
+                  allowUnfree = true;
+              };
+              # nixGL overlay
+              overlays = [ 
+                  nixgl.overlay
+              ];
+          };
+
+         extraSpecialArgs = inputs;
+
           modules = [
               hyprland.homeManagerModules.default
+              # ./home/sean/home.nix {_module.args = { inherit inputs; };}
               ./home/sean/home.nix
           ];
       };

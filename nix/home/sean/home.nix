@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, nixpkgs-unstable, ... }:
 
 let 
   inputs = import ~/configs/nix/inputs.nix;
@@ -49,14 +49,15 @@ in {
     # Nix Utils
     nix-prefetch-github
 
-    # NixGL to run nix graphical applications on non-NixOS systems
+    # Utility to run openGL nix apps 
     nixgl.auto.nixGLDefault
 
     # Sway / Hyprland
     swaylock # lockscreen
-    (waybar.overrideAttrs (oldAttrs: {
-        mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
-    }))
+    nixpkgs-unstable.legacyPackages.${system}.waybar-hyprland # Bar. Include hyprland modules.
+    # (waybar.overrideAttrs (oldAttrs: {
+    #     mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
+    # }))
     wofi # app launcher
     wl-clipboard # clipboard management (cli)
     swaybg # wallpaper launcher

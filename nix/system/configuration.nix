@@ -21,7 +21,15 @@
   time.timeZone = "America/Los_Angeles";
 
   # Enable OpenGL
-  hardware.opengl.enable = true;
+  # hardware.opengl.enable = true;
+
+  # # Override mesa drives to latest drivers from nixos-unstable branch (added via flake overlay).
+  # hardware.opengl.extraPackages = [pkgs.unstable-mesa.drivers];
+  # hardware.opengl.package = pkgs.unstable-mesa.drivers;
+  # system.replaceRuntimeDependencies = [
+  #     ({ original = pkgs.mesa; replacement = pkgs.unstable-mesa; })
+  #     ({ original = pkgs.mesa.drivers; replacement = pkgs.unstable-mesa.drivers; })
+  # ];
 
   # Setting package caches to speed up builds
   nix.settings = {
@@ -71,6 +79,8 @@
 
     # default Hyprland terminal
     kitty
+
+    glxinfo
   ];
 
   # Flatpak
