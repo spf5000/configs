@@ -41,9 +41,19 @@
   # Enable the X11 windowing system.
   services.xserver = {
     enable = true;
-    displayManager.gdm = {
-        enable = true;
-        wayland = true;
+    displayManager = {
+        gdm.enable = true;
+        gdm.wayland = true;
+        session = [
+              {
+                  manage = "desktop";
+                  name = "Hyprland";
+                  start = ''
+                  nixGL Hyprland &
+                  waitPID=$!
+                  '';
+              }
+        ];
     };
   };
 

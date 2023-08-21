@@ -1,4 +1,4 @@
-{ config, pkgs, nixpkgs-unstable, ... }:
+{ config, pkgs, pkgs-unstable, ... }:
 
 let 
   inputs = import ~/configs/nix/inputs.nix;
@@ -50,11 +50,10 @@ in {
     nix-prefetch-github
 
     # Utility to run openGL nix apps 
-    nixgl.auto.nixGLDefault
-
+    pkgs-unstable.nixgl.auto.nixGLDefault
     # Sway / Hyprland
     swaylock # lockscreen
-    nixpkgs-unstable.legacyPackages.${system}.waybar-hyprland # Bar. Include hyprland modules.
+    pkgs-unstable.waybar-hyprland # Bar. Include hyprland modules.
     # (waybar.overrideAttrs (oldAttrs: {
     #     mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
     # }))
@@ -79,6 +78,7 @@ in {
     nil
   ];
 
+  # Git
   programs.git = {
     enable = true;
     userName = "Sean Flinn";

@@ -22,6 +22,7 @@
   outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, hyprland, nixgl }@inputs : 
   let
       system = "x86_64-linux";
+      config = { allowUnfree = true; };
   in
   {
       nixosConfigurations.laptop = nixpkgs.lib.nixosSystem {
@@ -30,20 +31,24 @@
       };
 
       homeConfigurations.sean = home-manager.lib.homeManagerConfiguration {
-          # Using unstable packages so nixGL will build with the latest mesa drivers.
-          pkgs = import nixpkgs-unstable {
-          # pkgs = import nixpkgs {
-              inherit system;
-              config = {
-                  allowUnfree = true;
-              };
-              # nixGL overlay
-              overlays = [ 
-                  nixgl.overlay
-              ];
+          # Setting default pkgs to stable (23.05) nix.
+          pkgs = import nixpkgs {
+              config = config;
           };
 
-         extraSpecialArgs = inputs;
+
+          # Pass unstable nix packages for nixGL with latest drivers and access to other unstable packages.
+          extraSpecialArgs = {
+              pkgs-unstable = import nixpkgs-unstable {
+                  inherit system;
+                  config = config;
+
+                  # nixGL overlay. Part of stable for the latest mesa drivers.
+                  overlays = [ 
+                      nixgl.overlay
+                  ];
+              };
+          };
 
           modules = [
               hyprland.homeManagerModules.default
