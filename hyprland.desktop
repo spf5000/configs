@@ -1,0 +1,6 @@
+[Desktop Entry]
+Name=Hyprland
+Comment=An awesome wayland window manager (through nix :O).
+# NOTE: You need to provide the full path to home (or your nix store). The $HOME variable doesn't work
+Exec=$HOME/.nix-profile/bin/nixGL $HOME/.nix-profile/bin/Hyprland
+Type=Application

@@ -11,6 +11,14 @@ in {
       ./hyprland.nix
     ];
 
+  nix = {
+      # Allow home-manager to manage nix settings
+      package = pkgs.nix;
+
+      # Enable flakes.
+      settings.experimental-features = [ "nix-command" "flakes" ];
+  };
+
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
   home.username = inputs.user;
@@ -95,5 +103,4 @@ in {
   xdg.configFile."waybar".source = ~/configs/.config/waybar;
   xdg.configFile."xfce4".source = ~/configs/.config/xfce4;
   xdg.configFile."hypr".source = ~/configs/.config/hypr;
-  xdg.configFile."nix".source = ~/configs/.config/nix;
  }
