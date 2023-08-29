@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 
 {
   imports =
@@ -44,16 +44,13 @@
     displayManager = {
         gdm.enable = true;
         gdm.wayland = true;
-        session = [
-              {
-                  manage = "desktop";
-                  name = "Hyprland";
-                  start = ''
-                  nixGL Hyprland &
-                  waitPID=$!
-                  '';
-              }
-        ];
+        session = [{
+            manage = "desktop";
+            name = "MyHyprland";
+            start = "nixGL Hyprland";
+            wayland = true;
+            
+        }];
     };
   };
 

@@ -149,7 +149,7 @@ bindsym XF86MonBrightnessDown exec brightnessctl s 5%-
       $logout   exec swaymsg exit
       $restart  exec reboot
       $shutdown exec shutdown now
-      $hibernate exec systemctl hibernate
+      $hibernate exec systemctl hibernate, mode "default"
       $mode_exit [l]ogout, [s]hutdown, [r]eboot, [h]ibernate or Escape.
     }
 

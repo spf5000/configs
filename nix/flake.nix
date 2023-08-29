@@ -26,8 +26,13 @@
   in
   {
       nixosConfigurations.laptop = nixpkgs.lib.nixosSystem {
-         specialArgs = { inherit system; };
-         modules = [ ./system/configuration.nix ];
+         specialArgs = { 
+             inherit system; 
+             inherit inputs;
+         };
+         modules = [ 
+             ./system/configuration.nix 
+         ];
       };
 
       homeConfigurations.sean = home-manager.lib.homeManagerConfiguration {
