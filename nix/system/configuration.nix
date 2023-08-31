@@ -44,13 +44,6 @@
     displayManager = {
         gdm.enable = true;
         gdm.wayland = true;
-        session = [{
-            manage = "desktop";
-            name = "MyHyprland";
-            start = "nixGL Hyprland";
-            wayland = true;
-            
-        }];
     };
   };
 
@@ -65,6 +58,10 @@
       pulse.enable = true;
       jack.enable = true;
   };
+
+  # Enable bluetooth
+  hardware.bluetooth.enable = true;
+  services.blueman.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.sean = { 
@@ -100,10 +97,13 @@
   };
 
   # Hyperland
-  # programs.hyprland = {
-  #     enable = true;
-  #     xwayland.enable = true;
-  # };
+  programs.hyprland = {
+      enable = true;
+      xwayland.enable = true;
+
+      # Use latest hyprland.
+      package = inputs.hyprland.packages.${pkgs.system}.hyprland;
+  };
 
   # Sway
   programs.sway = {

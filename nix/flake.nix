@@ -57,7 +57,6 @@
 
           modules = [
               hyprland.homeManagerModules.default
-              # ./home/sean/home.nix {_module.args = { inherit inputs; };}
               ./home/sean/home.nix
           ];
       };

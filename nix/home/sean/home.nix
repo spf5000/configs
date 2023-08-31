@@ -8,7 +8,6 @@ in {
       ./nvim.nix
       ./tmux.nix
       ./zsh.nix
-      ./hyprland.nix
     ];
 
   nix = {
@@ -57,7 +56,7 @@ in {
     # Nix Utils
     nix-prefetch-github
 
-    # Utility to run openGL nix apps 
+    # Utility to run openGL nix apps (ex: alacritty)
     pkgs-unstable.nixgl.auto.nixGLDefault
     # Sway / Hyprland
     swaylock # lockscreen
