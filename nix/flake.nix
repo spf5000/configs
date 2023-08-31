@@ -17,9 +17,24 @@
 
       # nixGL so we can run nix graphical applications on non-NixOS (Linux) systems
       nixgl.url = "github:guibou/nixGL";
+
+      # Firefox extensions
+      firefox-extensions = {
+          url = "gitlab:rycee/nur-expressions/?dir=pkgs/firefox-addons";
+          inputs.nixpkgs.follows = "nixpkgs";
+      };
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, hyprland, nixgl }@inputs : 
+  outputs = { 
+      self, 
+      nixpkgs, 
+      nixpkgs-unstable, 
+      home-manager, 
+      hyprland, 
+      nixgl, 
+      firefox-extensions 
+  }@inputs : 
+
   let
       system = "x86_64-linux";
       config = { allowUnfree = true; };
@@ -44,6 +59,8 @@
 
           # Pass unstable nix packages for nixGL with latest drivers and access to other unstable packages.
           extraSpecialArgs = {
+              inherit inputs;
+
               pkgs-unstable = import nixpkgs-unstable {
                   inherit system;
                   config = config;

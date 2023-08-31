@@ -16,11 +16,9 @@ set $down j
 set $up k
 set $right l
 
-# Your preferred terminal emulator
-set $shell zsh
 # Normal Terminal
-# set $term alacritty -e $shell
-set $term xfce4-terminal -e tmux
+set $term alacritty -e tmux
+# set $term xfce4-terminal -e tmux
 # Nix/Home Manager Terminal
 # set $term LD_PRELOAD=/lib/x86_64-linux-gnu/libnss_sss.so.2 nixGL alacritty -e $shell
 

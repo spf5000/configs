@@ -8,6 +8,7 @@ in {
       ./nvim.nix
       ./tmux.nix
       ./zsh.nix
+      ./firefox.nix
     ];
 
   nix = {
@@ -51,7 +52,6 @@ in {
     dua
     # fractal # matrix
     # signal-desktop
-    firefox
 
     # Nix Utils
     nix-prefetch-github
