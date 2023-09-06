@@ -45,13 +45,12 @@ in {
     figlet
     xclip
     dmenu
-    rofi
     calcurse
     font-awesome
     brightnessctl
     dua
-    # fractal # matrix
-    # signal-desktop
+
+    xfce.thunar # file browser
 
     # Nix Utils
     nix-prefetch-github
