@@ -89,6 +89,9 @@ in {
     enable = true;
     userName = "Sean Flinn";
     userEmail = "sflinn54@gmail.com";
+    extraConfig = {
+        init.defaultBranch = "main";
+    };
   };
 
   # manage fonts via home manager

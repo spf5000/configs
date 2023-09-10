@@ -11,7 +11,10 @@
     ];
 
   # Use the systemd boot loader.
-  boot.loader.systemd-boot.enable = true;
+  boot.loader.systemd-boot = {
+      enable = true;
+      configurationLimit = 10;
+  };
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "nixos"; # Define your hostname.
