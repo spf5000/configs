@@ -59,10 +59,7 @@ in {
     pkgs-unstable.nixgl.auto.nixGLDefault
     # Sway / Hyprland
     swaylock # lockscreen
-    pkgs-unstable.waybar-hyprland # Bar. Include hyprland modules.
-    # (waybar.overrideAttrs (oldAttrs: {
-    #     mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
-    # }))
+    pkgs-unstable.waybar # Bar. 
     wofi # app launcher
     wl-clipboard # clipboard management (cli)
     swaybg # wallpaper launcher
@@ -77,9 +74,12 @@ in {
     bat
     ripgrep
 
-    # LSPs
-    python310Packages.python-lsp-server
+    # Typescript
     nodePackages.typescript-language-server
+    deno
+
+    # Extra LSPs
+    python310Packages.python-lsp-server
     kotlin-language-server
     nil
   ];
