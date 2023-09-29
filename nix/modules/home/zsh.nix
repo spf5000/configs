@@ -8,9 +8,9 @@ in
     enable = true;
     dotDir = ".config/zsh";
     shellAliases = {
-      system-update = "sudo nixos-rebuild switch --flake /home/sean/configs/nix#laptop --impure";
-      home-update = "home-manager switch --flake ~/configs/nix#sean --impure";
-      quick-home-update = "home-manager switch -f ~/configs/nix/home/sean/home.nix";
+      system-update = "sudo nixos-rebuild switch --flake ${inputs.homeDir}/configs/nix/${inputs.system}#system --impure";
+      home-update = "home-manager switch --flake ${inputs.homeDir}/configs/nix/${inputs.system}#home --impure";
+      nix-update = "nix flake update ${inputs.homeDir}/configs/nix/${inputs.system}";
       ls = "lsd";
       cat = "bat -p";
       grep = "rg";

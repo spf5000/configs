@@ -49,6 +49,7 @@ in {
     font-awesome
     brightnessctl
     dua
+    authy # 2-factor auth
 
     xfce.thunar # file browser
 

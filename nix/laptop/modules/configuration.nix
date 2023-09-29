@@ -23,6 +23,12 @@
   # Set your time zone.
   time.timeZone = "America/Los_Angeles";
 
+  # Mount "old" home partition
+  fileSystems."/oldHome" = {
+      device = "/dev/nvme0n1p6";
+  };
+
+
   # Enable OpenGL
   # hardware.opengl.enable = true;
 
@@ -83,6 +89,8 @@
     brave
     pavucontrol # volume management
     signal-desktop
+    nmap
+    vlc # video player
 
     # default Hyprland terminal
     kitty
@@ -103,9 +111,6 @@
   programs.hyprland = {
       enable = true;
       xwayland.enable = true;
-
-      # Use latest hyprland.
-      package = inputs.hyprland.packages.${pkgs.system}.hyprland;
   };
 
   # Sway
