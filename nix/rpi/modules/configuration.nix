@@ -1,57 +1,69 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, inputs, ... }:
 
 let 
-  inputs = import ../inputs.nix;
+  hidden-inputs = import /home/sean/configs/nix/inputs.nix;
 in {
   imports = [
-    "${fetchTarball "https://github.com/NixOS/nixos-hardware/archive/936e4649098d6a5e0762058cb7687be1b2d90550.tar.gz" }/raspberry-pi/4"
-    "${builtins.fetchTarball "https://github.com/ryantm/agenix/archive/main.tar.gz"}/modules/age.nix"
+    # "${builtins.fetchGit { url = "https://github.com/NixOS/nixos-hardware.git"; }}/raspberry-pi/4"
+    # "${builtins.fetchTarball "https://github.com/ryantm/agenix/archive/main.tar.gz"}/modules/age.nix"
+    ./remote-builder.nix
     ./docker.nix
     ./omada-controller.nix
     ./home-assistant.nix
     ./vpn.nix
-    ./ddns.nix
+    # ./ddns.nix
   ];
 
-  age.secrets.userPass.file = ../../secrets/userPass.agenix;
+  # age.secrets.userPass.file = ../../secrets/userPass.agenix;
   system.stateVersion = "22.11";
 
-  fileSystems = {
-    "/" = {
-      device = "/dev/disk/by-label/NIXOS_SD";
-      fsType = "ext4";
-      options = [ "noatime" ];
-    };
+  boot = {
+      kernelPackages = pkgs.linuxKernel.packages.linux_rpi4;
+      initrd.availableKernelModules = [ "xhci_pci" "usbhid" "usb_storage" ];
+      loader = {
+          grub.enable = false;
+          generic-extlinux-compatible.enable = true;
+      };
   };
 
-  ## Setup wifi if needed.
-  # networking = {
-  #   hostName = "${inputs.hostname}";
-  #   wireless = {
-  #     enable = false;
-  #     networks."${inputs.SSID}".psk = "${inputs.SSIDpassword}";
-  #     interfaces = [ "${inputs.interface}"];
+  # fileSystems = {
+  #   "/" = {
+  #     device = "/dev/disk/by-label/NIXOS_SD";
+  #     fsType = "ext4";
+  #     options = [ "noatime" ];
   #   };
   # };
 
-  environment.systemPackages = with pkgs; [ 
-      (pkgs.callPackage "${builtins.fetchTarball "https://github.com/ryantm/agenix/archive/main.tar.gz"}/pkgs/agenix.nix" {})
-  ];
+  ## Setup wifi if needed.
+  networking = {
+    hostName = "${hidden-inputs.hostname}";
+    wireless = {
+      enable = true;
+      networks."${hidden-inputs.SSID}".psk = "${hidden-inputs.SSIDpassword}";
+      interfaces = [ "${hidden-inputs.interface}"];
+    };
+  };
+
+  # environment.systemPackages = with pkgs; [ 
+  #     (pkgs.callPackage "${builtins.fetchTarball "https://github.com/ryantm/agenix/archive/main.tar.gz"}/pkgs/agenix.nix" {})
+  # ];
 
   services.openssh.enable = true;
 
   users = {
     mutableUsers = false;
-    defaultUserShell = pkgs.zsh;
-    users."${inputs.user}" = {
+    # defaultUserShell = pkgs.zsh;
+    users."${hidden-inputs.user}" = {
       isNormalUser = true;
-      passwordFile = config.age.secrets.userPass.path;
+      password = "${hidden-inputs.password}";
+      # passwordFile = config.age.secrets.userPass.path;
       extraGroups = [ "wheel" "podman" ];
     };
   };
 
   # Enable GPU acceleration
-  hardware.raspberry-pi."4".fkms-3d.enable = true;
+  hardware.enableRedistributableFirmware = true;
 
-  hardware.pulseaudio.enable = false;
+  # TODO: See if this is actually needed.
+  # hardware.pulseaudio.enable = false;
 }

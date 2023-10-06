@@ -4,6 +4,8 @@
   inputs = {
       # Nix packages. Used for system and home-manager
       nixpkgs.url = "nixpkgs/nixos-23.05";
+      nixpkgs-unstable.url = "nixpkgs/nixos-unstable";
+      nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
       # Home Manager <3
       home-manager = {
@@ -25,28 +27,30 @@
       self, 
       nixpkgs, 
       nixpkgs-unstable, 
-      home-manager, 
-      hyprland, 
+      nixos-hardware,
+      home-manager,
       nixgl, 
       firefox-extensions 
   }@inputs : 
 
   let
-      system = "x86_64-linux";
+      system = "aarch64-linux";
       config = { allowUnfree = true; };
   in
   {
-      nixosConfigurations.laptop = nixpkgs.lib.nixosSystem {
+      nixosConfigurations.system = nixpkgs.lib.nixosSystem {
          specialArgs = { 
              inherit system; 
              inherit inputs;
          };
          modules = [ 
-             ./system/configuration.nix 
+             ./modules/configuration.nix 
+             nixos-hardware.nixosModules.raspberry-pi-4
+            /etc/nixos/hardware-configuration.nix
          ];
       };
 
-      homeConfigurations.sean = home-manager.lib.homeManagerConfiguration {
+      homeConfigurations.home = home-manager.lib.homeManagerConfiguration {
           # Setting default pkgs to stable (23.05) nix.
           pkgs = import nixpkgs {
               config = config;
@@ -69,7 +73,6 @@
           };
 
           modules = [
-              hyprland.homeManagerModules.default
               ./home/sean/home.nix
           ];
       };
