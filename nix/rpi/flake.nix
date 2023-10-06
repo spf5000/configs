@@ -46,7 +46,7 @@
          modules = [ 
              ./modules/configuration.nix 
              nixos-hardware.nixosModules.raspberry-pi-4
-            /etc/nixos/hardware-configuration.nix
+             # /etc/nixos/hardware-configuration.nix
          ];
       };
 

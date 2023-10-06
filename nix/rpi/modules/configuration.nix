@@ -17,14 +17,14 @@ in {
   # age.secrets.userPass.file = ../../secrets/userPass.agenix;
   system.stateVersion = "22.11";
 
-  boot = {
-      kernelPackages = pkgs.linuxKernel.packages.linux_rpi4;
-      initrd.availableKernelModules = [ "xhci_pci" "usbhid" "usb_storage" ];
-      loader = {
-          grub.enable = false;
-          generic-extlinux-compatible.enable = true;
-      };
-  };
+  # boot = {
+  #     kernelPackages = pkgs.linuxKernel.packages.linux_rpi4;
+  #     initrd.availableKernelModules = [ "xhci_pci" "usbhid" "usb_storage" ];
+  #     loader = {
+  #         grub.enable = false;
+  #         generic-extlinux-compatible.enable = true;
+  #     };
+  # };
 
   # fileSystems = {
   #   "/" = {
@@ -33,6 +33,16 @@ in {
   #     options = [ "noatime" ];
   #   };
   # };
+
+  hardware = {
+      raspberry-pi."4".apply-overlays-dtmerge.enable = true;
+      deviceTree = {
+          enable = true;
+          filter = "*rpi-4-*.dtb";
+      };
+  };
+  console.enable = false;
+
 
   ## Setup wifi if needed.
   networking = {
@@ -44,9 +54,10 @@ in {
     };
   };
 
-  # environment.systemPackages = with pkgs; [ 
-  #     (pkgs.callPackage "${builtins.fetchTarball "https://github.com/ryantm/agenix/archive/main.tar.gz"}/pkgs/agenix.nix" {})
-  # ];
+  environment.systemPackages = with pkgs; [ 
+      libraspberrypi
+      raspberrypi-eeprom
+  ];
 
   services.openssh.enable = true;
 
