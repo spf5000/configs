@@ -110,13 +110,15 @@ in {
         signal-desktop
         nmap
         vlc # video player
+        gnome.eog # image viewer
+        libheif # .heic file support from iphone
     
         # default Hyprland terminal
         kitty
     
         glxinfo
     ];
-  
+
     # Flatpak
     services.flatpak.enable = true;
   
