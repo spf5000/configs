@@ -3,12 +3,12 @@
 
   inputs = {
       # Nix packages. Used for system and home-manager
-      nixpkgs.url = "nixpkgs/nixos-23.05";
+      nixpkgs.url = "nixpkgs/nixos-23.11";
       nixpkgs-unstable.url = "nixpkgs/nixos-unstable";
 
       # Home Manager <3
       home-manager = {
-          url = "home-manager/release-23.05";
+          url = "home-manager/release-23.11";
           inputs.nixpkgs.follows = "nixpkgs";
       };
 
