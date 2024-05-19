@@ -31,7 +31,7 @@
                     }];
 
                     icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
-                    definedAliases = [ "nix" ];
+                    definedAliases = [ "nix-pkg" ];
                 };
             };
             search.default = "DuckDuckGo";

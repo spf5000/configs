@@ -39,70 +39,72 @@ in {
 
   # Packages
   home.packages = with pkgs; [
-    xfce.xfce4-terminal
-    alacritty
-    neofetch
-    figlet
-    xclip
-    dmenu
-    calcurse
-    font-awesome
-    brightnessctl
-    dua
-    authy # 2-factor auth
-
-    xfce.thunar # file browser
-
-    # Nix Utils
-    nix-prefetch-github
-
-    # Utility to run openGL nix apps (ex: alacritty)
-    pkgs-unstable.nixgl.auto.nixGLDefault
-    # Sway / Hyprland
-    swaylock # lockscreen
-    pkgs-unstable.waybar # Bar. 
-    wofi # app launcher
-    wl-clipboard # clipboard management (cli)
-    swaybg # wallpaper launcher
-    mako # notification daemon
-
-    # Rust
-    gcc
-    rustup
-
-    # Rust Apps
-    lsd
-    bat
-    ripgrep
-
-    # Typescript
-    nodePackages.typescript-language-server
-    deno
-
-    # Extra LSPs
-    python310Packages.python-lsp-server
-    kotlin-language-server
-    nil
+      xfce.xfce4-terminal
+      alacritty
+      neofetch
+      figlet
+      xclip
+      dmenu
+      calcurse
+      font-awesome
+      brightnessctl
+      dua
+      # authy # 2-factor auth
+  
+      xfce.thunar # file browser
+  
+      # Nix Utils
+      nix-prefetch-github
+  
+      # Sway / Hyprland
+      swaylock # lockscreen
+      pkgs-unstable.waybar # Bar. 
+      wofi # app launcher
+      wl-clipboard # clipboard management (cli)
+      swaybg # wallpaper launcher
+      mako # notification daemon
+  
+      # Rust
+      gcc
+      rustup
+  
+      # Rust Apps
+      lsd
+      bat
+      ripgrep
+  
+      # Typescript
+      nodePackages.typescript-language-server
+      deno
+  
+      # Extra LSPs
+      python310Packages.python-lsp-server
+      kotlin-language-server
+      nil
   ];
 
   # Git
   programs.git = {
-    enable = true;
-    userName = "Sean Flinn";
-    userEmail = "sflinn54@gmail.com";
-    extraConfig = {
-        init.defaultBranch = "main";
-    };
+      enable = true;
+      userName = "Sean Flinn";
+      userEmail = "sflinn54@gmail.com";
+      extraConfig = {
+          init.defaultBranch = "main";
+      };
   };
 
   # manage fonts via home manager
   fonts.fontconfig.enable = true;
 
   # dotfiles. See github: https://github.com/spf5000/configs
-  xdg.configFile."alacritty".source = ~/configs/.config/alacritty;
-  xdg.configFile."sway".source = ~/configs/.config/sway;
-  xdg.configFile."swaylock".source = ~/configs/.config/swaylock;
-  xdg.configFile."waybar".source = ~/configs/.config/waybar;
-  xdg.configFile."xfce4".source = ~/configs/.config/xfce4;
-  xdg.configFile."hypr".source = ~/configs/.config/hypr;
- }
+  xdg.configFile = {
+      "alacritty".source = ~/configs/.config/alacritty;
+      "sway".source = ~/configs/.config/sway;
+      "swaylock".source = ~/configs/.config/swaylock;
+      "waybar".source = ~/configs/.config/waybar;
+      "xfce4".source = ~/configs/.config/xfce4;
+      "hypr".source = ~/configs/.config/hypr;
+      # Use .wallpaper.jpg if present, otherwise use default under configs in git.
+      "wallpaper.jpg".source = if builtins.pathExists ~/.wallpaper.jpg then ~/.wallpaper.jpg else ~/configs/wallpaper.jpg;
+  };
+}

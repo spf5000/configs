@@ -60,11 +60,6 @@
               pkgs-unstable = import nixpkgs-unstable {
                   inherit system;
                   config = config;
-
-                  # nixGL overlay. Part of stable for the latest mesa drivers.
-                  overlays = [ 
-                      nixgl.overlay
-                  ];
               };
           };
 

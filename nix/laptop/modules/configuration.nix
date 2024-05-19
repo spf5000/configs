@@ -129,16 +129,20 @@ in {
     };
   
     # Hyperland
-    programs.hyprland = {
-        enable = true;
-        xwayland.enable = true;
-    };
-  
+    # programs.hyprland = {
+    #     enable = true;
+    #     xwayland.enable = true;
+    # };
+ 
+    programs.xwayland.enable = true;
+
     # Sway
     programs.sway = {
         enable = true;
         wrapperFeatures.gtk = true;
     };
+
+    programs.steam.enable = true;
   
     # Wayland screen sharing
     xdg.portal = {
