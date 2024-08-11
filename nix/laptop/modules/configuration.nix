@@ -118,6 +118,15 @@ in {
         glxinfo
 
         xorg.xhost
+
+        # Retroarch
+        (retroarch.override {
+            cores = with libretro; [
+                mgba
+                mupen64plus
+            ];
+        })
+
     ];
 
     # Flatpak
@@ -144,6 +153,8 @@ in {
     };
 
     programs.steam.enable = true;
+
+    
   
     # Wayland screen sharing
     xdg.portal = {
