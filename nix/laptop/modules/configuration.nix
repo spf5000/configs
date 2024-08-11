@@ -25,14 +25,13 @@ in {
     # Set your time zone.
     time.timeZone = "America/Los_Angeles";
 
-    # Mount "old" home partition
-    fileSystems."/oldHome" = {
-        device = "/dev/nvme0n1p6";
+    # Mount home partition
+    fileSystems."/home" = {
+        device = "/dev/nvme0n1p4";
     };
 
     # Enable ssh for remote nix builds from raspberry pi
-    services.openssh.enable = true;
-
+    services.openssh.enable = false;
 
     # Enable OpenGL
     # hardware.opengl.enable = true;
@@ -117,6 +116,8 @@ in {
         kitty
     
         glxinfo
+
+        xorg.xhost
     ];
 
     # Flatpak
