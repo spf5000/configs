@@ -100,6 +100,12 @@ in {
     # Allow unfree packages
     nixpkgs.config.allowUnfree = true;
 
+    # Iphone sync
+    services.usbmuxd = {
+        enable = true;
+        package = pkgs.usbmuxd2;
+    };
+  
     # List packages installed in system profile. To search, run:
     # $ nix search wget
     environment.systemPackages = with pkgs; [
@@ -127,10 +133,20 @@ in {
             ];
         })
 
+        # Iphone sync
+        libimobiledevice
+        ifuse
+
+        # Signature
+        xournal
+
     ];
 
     # Flatpak
     services.flatpak.enable = true;
+
+    # Steam
+    # programs.steam.enable = true;
   
     # Wayland session variables.
     environment.sessionVariables = {
@@ -151,10 +167,6 @@ in {
         enable = true;
         wrapperFeatures.gtk = true;
     };
-
-    programs.steam.enable = true;
-
-    
   
     # Wayland screen sharing
     xdg.portal = {
@@ -162,7 +174,7 @@ in {
         wlr.enable = true;
         extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
     };
-  
+
     # Before changing this value read the documentation for this option
     # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
     system.stateVersion = "23.05"; # Did you read the comment?
